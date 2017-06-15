@@ -1,0 +1,122 @@
+%%%%%%% Keep Index at the top, %%%%%%%%%%%%%
+%%%%%  Otherwise link will not work %%%%%%%%
+%%% Index
+\usepackage{imakeidx}
+\makeindex[intoc, columns=3, title=Index]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% Add nomenclature in Table of content %%%%%%%
+\usepackage[intoc]{nomencl}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+
+%%%% for Theorem and Definition etc.
+\usepackage{thmtools}
+\usepackage{etoolbox}
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{graphicx}
+
+
+%%% reduce spaces for Table of contents, figures and tables
+%%% it is used "\addtocontents{toc}{\vskip -1.2cm}" etc. in the document
+\usepackage[notlot,nottoc,notlof]{}
+
+\usepackage{color}
+\usepackage{transparent}
+\usepackage{eso-pic}
+\usepackage{lipsum}
+\usepackage{subcaption}
+
+%%% hyper link settings
+\usepackage[hidelinks, hyperfootnotes=false]{hyperref} %%% hyperfootnotes=false, as it does not work properly. 
+\hypersetup{
+	%	final=true,
+	%	plainpages=false,
+	%	pdfstartview=FitV,
+	%	pdftoolbar=true,
+	%	pdfmenubar=true,
+	%	bookmarksopen=true,
+	bookmarksnumbered=true,
+	%	breaklinks=true,
+	%	linktocpage,
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=blue,
+	citecolor=blue,
+	anchorcolor=blue,
+}
+
+\usepackage{footnotebackref} %%link at the footnote to go to the place of footnote in the text
+
+
+
+%%%%%%%%%%%%%% page layout %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% spacing between line
+\usepackage{setspace}
+%%%%\onehalfspacing
+%%%%\doublespacing
+\singlespacing
+
+
+%%% set margin
+\usepackage[margin=1in]{geometry}
+%%\usepackage[left=37mm,right=30mm,top=35mm,bottom=30mm]{geometry}
+
+%% RO, LE will not work for 'oneside' layout.
+%% Change oneside to twoside in document class
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+%%% Alternating Header for oneside
+\fancyhead[L]{\ifthenelse{\isodd{\value{page}}}{ \small \nouppercase{\leftmark} }{}}
+\fancyhead[R]{\ifthenelse{\isodd{\value{page}}}{}{ \small \nouppercase{\rightmark} }}
+
+%%% Alternating Header for two side
+%\fancyhead[RO]{\small \nouppercase{\rightmark}}
+%\fancyhead[LE]{\small \nouppercase{\leftmark}}
+
+%% for oneside: change footer at right side. If you want to use Left and right then use same as header defined above.
+\fancyfoot[R]{\ifthenelse{\isodd{\value{page}}}{{\tiny Meher Krishna Patel} }{\href{http://pythondsp.readthedocs.io/en/latest/pythondsp/toc.html}{\tiny PythonDSP}}}
+
+%%% Alternating Footer for two side
+%\fancyfoot[RO, RE]{\scriptsize Meher Krishna Patel (mekrip@gmail.com)}
+
+%%% page number
+\fancyfoot[CO, CE]{\thepage}
+
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+
+
+
+%%reduce spacing for itemize
+\usepackage{enumitem}
+\setlist{nosep}
+%%you can change style for bulletlist and number list using below command.
+%\setlist{label=(*),itemsep=3pt,topsep=3pt}
+%\setenumerate{label=(\roman*),itemsep=30pt,topsep=30pt}
+
+
+%%% Nomenclature 
+\usepackage{nomencl}
+\usepackage{ifthen}
+\renewcommand{\nomgroup}[1]{%
+	\item[\bfseries
+	\ifthenelse{\equal{#1}{P}}{Physics Constants}{%
+		\ifthenelse{\equal{#1}{O}}{Other Symbols}{%
+			\ifthenelse{\equal{#1}{N}}{Number Sets}{
+				\ifthenelse{\equal{#1}{A}}{Abbreviations}{}}}}%
+	%%% to add more paste this \ifthenelse{\equal{#1}{A}}{Abbreviations}{} between {} in last line
+	]}
+\makenomenclature
+\renewcommand{\nomname}{Nomenclature} %%% Heading for TOC
+
+
+
+%%% Multicolumns
+\usepackage{multicol}

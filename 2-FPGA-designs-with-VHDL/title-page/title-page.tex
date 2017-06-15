@@ -1,0 +1,78 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% Logo for top of the Page %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Logo on top page.
+%\AddToShipoutPicture*{\put(0,300){\parbox[b][\paperheight]{\paperwidth}
+%		{\vfill \centering
+%			\includegraphics[scale=0.2]{title-page/logo.jpg}
+%			\vfill}}
+%	\put(0,300){\transparent{0}\textcolor{white}{\rule{\paperwidth}{\paperheight}}}}
+%
+%
+%
+%
+%\title{\vspace{30mm}\textbf{Latex Documentation}}
+%
+%\author{ 
+%	\Large \textbf{Meher Krishna Patel} \\ 
+%	\large \href{mailto:mekrip@gmail.com}{mekrip@gmail.com}
+%}
+%
+%\date{\today \vspace{-20mm}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% Logo for full Page %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%%% Logo on top page.
+%%\AddToShipoutPicture*{\put(0,70){\parbox[b][\paperheight]{\paperwidth}
+%%		{\vfill \centering
+%%			\includegraphics[scale=0.3]{title-page/logo.jpg}
+%%			\vfill}}
+%%	\put(0,300){\transparent{0}\textcolor{white}{\rule{\paperwidth}{\paperheight}}}}
+%%
+%%
+%%
+%%
+%%\title{\vspace{-30mm}\textbf{\Huge Latex Documentation}\vspace{90mm}}
+%%
+%%\author{ 
+%%	\Large \textbf{Meher Krishna Patel} \\ 
+%%	\large \href{mailto:mekrip@gmail.com}{mekrip@gmail.com}
+%%}
+%%
+%%\date{\today \vspace{-20mm}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Custom Title Page %%%%%%%%%%%%%%%%%
+\pagenumbering{Roman} %%% to avoid page 1 conflict with actual page 1
+
+\begin{titlepage}	
+	\centering
+	
+	\vspace*{40mm} %%% * is used to give space from top
+	\textbf{\Huge {FPGA designs with VHDL}}
+	
+	\vspace{0mm}
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.3]{title-page/logo.jpg}
+	\end{figure}
+	
+	\vspace{0mm} 
+	\Large \textbf{{Meher Krishna Patel}}
+	
+	\small 	\today
+	
+	
+	%% \vfill adds at the bottom
+	\vfill
+	\small \textit{More documents are freely available at }{\href{http://pythondsp.readthedocs.io/en/latest/pythondsp/toc.html}{PythonDSP}}	
+\end{titlepage}
+
+%\thispagestyle{empty}  
+%\clearpage

@@ -1,0 +1,370 @@
+\section{Introduction}
+In this tutorial, we will learn to design embedded system on FPGA board using Nios-II processor, which is often known as `System on Programmable chip (SoPC)'. Before beginning the SoPC design, let's understand the difference between `computer system', `embedded system' and `SoPC system'. \textbf{Computer systems}, e.g. personal computers (PCs), support various end user applications. Selection of these computer systems for few specific applications, e.g. timers settings, displays and buzzers in microwave-ovens or washing machines etc.,  is not a cost effective choice. The \textbf{Embedded systems} are cost effective solution for such cases, where only few functionalities are required in the system.  Since, embedded systems are designed for specific tasks, therefore the designs can be optimized based on the applications. Further, \textbf{SoPC systems} are the programmable embedded systems i.e. we can design the embedded systems using Verilog/VHDL codes and implement them on the FPGA board.
+
+Nios II is a 32-bit embedded-processor architecture designed for Altera-FPGA board. In Fig. \ref{fig:NiosFlowChart}, various steps are shown to design the SoPC system on the FPGA board using Nios-II processor. In this chapter, these steps are discussed and a system is designed which displays the message on the computer and blinks one LED using FPGA board. Further, the outputs of this system is verified using Modelsim.  \textbf{It is recommended to read first two chapters before practicing the codes, as various issues related to the use of Nios software are discussed in these chapters.}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.65]{NiosFlowChart}
+	\caption{Flow chart for creating the embedded system}
+	\label{fig:NiosFlowChart}
+\end{figure}
+
+\begin{noNumBox}
+Note that, the NIOS-projects can not be run directly on the system, after downloading it from the website; therefore only `necessary files are provided on the \href{http://pythondsp.readthedocs.io/en/latest/pythondsp/toc.html}{website}. Please see Appendix \ref{NiosQuartusModelsim} to compile and synthesize the provided codes.
+\end{noNumBox}
+
+\begin{noNumBox}
+Also, if you change the location of the project in your system (after creating it) or change the FPGA-board, then you need to follow the instructions in the Appendix \ref{NiosQuartusModelsim} again.  
+\end{noNumBox}
+
+\section{Creating Quartus project} \label{sec:CreateQuartusProject}
+First, we need to create the project at desired location, with following steps, 
+\begin{enumerate}
+	\item Path to project directory should not contain any spaces in the names of folder as shown in Fig. \ref{fig:createProject}, as path will not be detected by the Nios-II software in later part of the tutorial. 
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.55]{createProject}
+		\caption{Create project}
+		\label{fig:createProject}
+	\end{figure}
+	
+	\item Choose the correct FPGA device as shown in Fig. \ref{fig:createProjectPage3}. If you do not have any, then select correct device family and use it for rest of the tutorial. \textbf{Note that, `simulation' is the most important process of the design, and FPGA board is not required for creating and simulating the embedded design.} Hence, if you don't have FPGA board, you can still use the tutorial. Implementation of the design on the FPGA board requires the loading the `.sof' and `.elf' files on the board, which is not a big deal.  
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.55]{createProjectPage3}
+		\caption{Select FPGA device}
+		\label{fig:createProjectPage3}
+	\end{figure}
+	
+	\item Lastly, choose the correct simulation-software and language  i.e. Modelsim-Altera and VHDL respectively as shown in Fig. \ref{fig:createProjectPage4}.
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.55]{createProjectPage4}
+		\caption{Select simulation software}
+		\label{fig:createProjectPage4}
+	\end{figure}
+\end{enumerate}
+
+
+\section{Create custom peripherals}
+We can create peripheral devices e.g. adder, divider or clock generator using VHDL. Then these devices can be used in creating the SoPC using Nios-II software as discussed in Section \ref{sec:CreateGenerateQsys}. For simplicity of the tutorial, only predefined-peripherals are used in the designs, which are available in Nios-II software. Creating and using the custom-peripherals will be discussed in later chapters. 
+
+
+\section{Create and Generate SoPC using Qsys}\label{sec:CreateGenerateQsys}
+SoPC can be created using two tools in Quartus software i.e. `SOPC builder' and `Qsys' tools. Since Qsys is the recommended tool by the Altera, therefore we will use this tool for generating the SoPC system. To open the Qsys tool, go to Tools$\rightarrow$Qsys in Quartus software. Next, follow the below steps to create the SoPC system,
+\begin{enumerate}
+	\item Rename `clk\_0' to `clk' by right clicking the name (optional step). Note that, renaming steps are optional; but assigning appropriate names to the components is good practice as we need to identify these components in later tutorial. 
+	\item In component library, search for Nios processor as shown in Fig. \ref{fig:AddNiosProcessor} and select the Nios II/e (i.e. economy version) for this tutorial. Note that various errors are displayed in the figure, which will be removed in later part of this section. Next, rename the processor to `nios\_blinkingLED' and  connect the clock and reset port to `clk' device, by clicking on the circles as shown in Fig. \ref{fig:ConnectClock}. 
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.6]{AddNiosProcessor}
+		\caption{Add Nios processor}
+		\label{fig:AddNiosProcessor}
+	\end{figure}
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.6]{ConnectClock}
+		\caption{Rename Nios processor and connect the ports}
+		\label{fig:ConnectClock}
+	\end{figure}
+	
+	\item Next add the `onchip memory' to the system with 20480 (i.e. 20k) bytes as shown in Fig. \ref{fig:onchipMemory} and rename it to RAM. \textbf{For different FPGA boards, we may need to reduce the memory size, if the `memory-overflow' error is displayed during `generation' process in Fig. \ref{fig:SystemGeneated}}.
+	
+		\begin{figure}[!h]
+			\centering
+			\includegraphics[scale=0.75]{onchipMemory}
+			\caption{Add onchip memory to the system}
+			\label{fig:onchipMemory}
+		\end{figure}
+	
+	\item After that, search for `JTAG UART' and add it with default settings. It is used for the communication of the FPGA device to Nios software. More specifically, it is required display the outputs of the `printf' commands on the Nios software. 
+	
+	\item Next, add a PIO device for blinking the LED. Search for PIO device and add it as `1 bit' PIO device (see Fig. \ref{fig:PIO}), because we will use only one blinking LED. Since, the PIO device, i.e. `LED', is available as external port, therefore name of the `external\_connection' must be defined as shown in Fig. \ref{fig:LEDsettings}. 
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.7]{PIO}
+		\caption{Add 1 bit PIO for one blinking LED}
+		\label{fig:PIO}
+	\end{figure}
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.6]{LEDsettings}
+		\caption{Settings for PIO and other device}
+		\label{fig:LEDsettings}
+	\end{figure}
+	
+	\item Then, add all the connections as shown in the Fig. \ref{fig:LEDsettings}. Also, add the JTAG slave to the data master of Nios processors i.e. IRQ in Fig. \ref{fig:interupt}
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.6]{interupt}
+		\caption{Connect IRQ}
+		\label{fig:interupt}
+	\end{figure}
+	
+	\item Next, double click on the to the Nios processor i.e. `nios\_blinkingLED' in the Fig. \ref{fig:LEDsettings}; and set RAM as reset and exception vectors as shown in Fig. \ref{fig:NiosRam}.
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.6]{NiosRam}
+		\caption{Setting Reset and Exception vector for Nios processor}
+		\label{fig:NiosRam}
+	\end{figure}
+	
+	
+	\item Then, go to Systems$\rightarrow$Assign Base Address. This will assign the unique addresses for all the devices. With the help of these address, the devices can be accessed by C/C++ codes in Nios-II software. If everything is correct till this point, we will get the `0 Errors, 0 Warnings' message as shown in Fig. \ref{fig:CompleteNios}.
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.6]{CompleteNios}
+		\caption{0 errors and 0 warnings}
+		\label{fig:CompleteNios}
+	\end{figure}
+	
+	
+	\item Finally, to allow the simulation of the designs, go to `generation' tab and set the tab as shown in the Fig. \ref{fig:simulationQsys}. \textbf{Note that, VHDL can not be used as simulation language, as this version of Quartus does not support it}. Since,  generated verilog files are used for the simulation settings settings only, therefore we need not to look at these files. Hence it does not matter, whether these files are created using VHDL or Verilog. 
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.6]{simulationQsys}
+		\caption{Simulation settings}
+		\label{fig:simulationQsys}
+	\end{figure}
+	
+	
+	\item Save the system with desired name e.g. `nios\_blinkingLED.qsys' and click on generate button. If system is generated successfully, we will get the message as shown in Fig. \ref{fig:SystemGeneated}
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.55]{SystemGeneated}
+		\caption{System generated successfully}
+		\label{fig:SystemGeneated}
+	\end{figure}	
+	
+	\item After this process, a \textbf{`nios\_blinkingLED.sopcinfo'} file will be generated, which is used by Nios-II software to create the embedded design. This file contains all the information about the components along with their base addresses etc. Further, two more folders will be created inside the `nios\_blinkingLED' folder i.e. `\textbf{synthesis}' and `\textbf{testbench}'. These folders are generated as we select the `synthesis' and `simulation' options in Fig. \ref{fig:simulationQsys}, and contains various information about synthesis (e.g. `nios\_blinkingLED.qip' file) and simulation (e.g. `nios\_blinkingLED\_tb.qsys' file). The \textbf{`nios\_blinkingLED.qip}' file will be used for the creating the top module for the design i.e. LEDs will be connected to FPGA board using this file; whereas `\textbf{nios\_blinkingLED\_tb.qsys}' contains the information about simulation waveforms for the testbenches. Lastly, `\textbf{nios\_blinkingLED\_tb.spd}' is generated which is used by Nios software to start the simulation process. 
+	
+	\item In this way, SoPC system can be generated. Finally, close the Qsys tool. 	In next section, Nios software will be used to create the blinking-LED system using `nios\_blinkingLED.sopcinfo' file.
+\end{enumerate}
+
+\section{Create Nios system} \label{sec:Nios_create_sys}
+In previous section, we have created the SoPC system and corresponding .sopcinfo file was generated. In this section, we will use the .sopcinfo file to create a system with blinking LED functionality. 
+
+To open the Nios software from Quarturs software, click on Tools$\rightarrow$Nios II software Build Tools for Eclipse. If you are using it first time, then it will ask for work space location; you can select any location for this.  
+
+\section{Add and Modify BSP} \label{sec:add_modify_bsp}
+To use the .sopcinfo file, we need to create a `board support package (BSP)'. Further, BSP should be modify for simulation purpose, as discussed in this section.
+
+\subsection{Add BSP}\label{sec:AddBSP}
+To add BSP, go to File$\rightarrow$New$\rightarrow$Nios II Board Support Package. Fill the project name field and select the .sopcinfo file as shown in Fig. \ref{fig:CreateBSP}. Rest of the field will be filled automatically. 
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.55]{CreateBSP}
+		\caption{Add board support package (BSP)}
+		\label{fig:CreateBSP}
+	\end{figure}
+
+After clicking on finish, BSP\_blinkingLED folder will be created which contains various files e.g. system.h, io.h and drivers etc. These files are generated based on the information in the .sopcfile e.g. in Fig. \ref{fig:systemH}, which shows the partial view of system.h file, contains the information about LED along with the base address (note that, this LED was added along with base address in Section \ref{sec:CreateGenerateQsys}).  Note that, address location is defined as `LED\_BASE' in the system.h file; and we will use this name in the tutorial instead of using the actual base address. In this way, we need not to modify the `C/C++' codes, when the base address of the LED is changed during Qsys modification process.  
+
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.6]{systemH}
+		\caption{system.h file}
+		\label{fig:systemH}
+	\end{figure}
+
+\subsection{Modify BSP (required for using onchip memory)} \label{sec:ModifyBSP}
+\textbf{Some modifications are required in the BSP file for using onchip memory (due to it's smaller size). Also, due to smaller size of onchip memory, C++ codes can not be used for NIOS design. Further, these settings are not required for the cases where external RAM is used for memory e.g. SDRAM (discussed in Chapter \ref{ch:UartSdramPython}); and after adding external RAM, we can use C++ code for NIOS design as well.} 
+
+To modify the BSP, right click on `BSP\_blinkingLED' and then click on Nios II$\rightarrow$BSP Editor. Then select the `enable\_reduce\_device\_drivers' and `enable\_small\_c\_library' as shown in Fig. \ref{fig:modifyBSP}; then click on the `\textbf{generate}' button to apply the modifications. 
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.5]{modifyBSP}
+		\caption{Modify BSP}
+		\label{fig:modifyBSP}
+	\end{figure}
+
+
+\section{Create application using C/C++}\label{sec:AddApplication}
+In previous section, various information are generated by BSP based to .sopcinfo file. In this section, we will write the `C' application to blink the LED. Further, we can write the code using C++ as well. 
+
+To create the application, go to File$\rightarrow$New$\rightarrow$Nios II Application. Fill the application name i.e. `Application\_blinkingLED' and select the BSP location as shown in Fig. \ref{fig:createApplication}. 
+
+To create the C application, right click on the `Application\_blinkingLED' and go to New$\rightarrow$Source File. Write the name of source file as `main.c' and select the `\textbf{Default C source template}'.
+
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.55]{createApplication}
+		\caption{Create Application}
+		\label{fig:createApplication}
+	\end{figure}
+
+Next, write the code in `main.c' file as shown in Listing \ref{c:main}. After writing the code, right click on the `Application\_blinkingLED' and click on `build project'. 
+
+\begin{explanation}[Listing \ref{c:main}]
+	The `io.h' file at Line 2, contains various functions for operations on input/output ports e.g. IOWR(base, offset, data) at Line 15 is define in it. Next, IOWR uses three parameter i.e. base, offset and data which are set to `LED\_BASE', `0' and `led\_pattern' respectively at Line 15. `LED\_BASE' contains the based address, which is defined in `system.h' file at Line 4 (see Fig. \ref{fig:systemH} as well). Lastly, `alt\_u8' is the custom data-type (i.e. unsigned 8-bit integer), which is used at line 7 and defined in `alt\_types.h' at Line 3. It is required because, for predefined C data types e.g. int and long etc. the size of the data type is defined by the compiler; but using `alt\_types.h' we can define the exact size for the data.  
+	
+	Since `alt\_u8' is 8 bit wide, therefore led\_pattern is initialized as `0$\times$01' (i.e. 0000-0001) at Line 7. Then this value is inverted at Line 14 (for blinking LED). Lastly, this pattern is written on the LED address at Line 15. Second parameter, i.e. offset is set to 0, because we want to write the pattern on LED\_BASE (not to other location with respect of LED\_BASE). Also, dummy loop is used at Line 19 is commented, which will be required for visual verification of the blinking LED in Section \ref{sec:AddLoadNIOS}.
+\end{explanation}
+\lstinputlisting[
+caption    = {Blinking LED with C application},
+language = C,
+label      = {c:main}
+]{CppCodes/main.c}
+
+\section{Simulate the Nios application}\label{sec:SimulateNios}
+In previous section, we built the Nios application. To simulate this system, right click on `Application\_blinkingLED' and go to Run as$\rightarrow$NOIS II Modelsim. Then select the location of Modelsim software i.e. `win32aloem' or `win64aloem' folder as shown in Fig. \ref{fig:ModelsimLocation}; this can be found inside the folders where Altera software is installed. 
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.55]{ModelsimLocation}
+		\caption{Search for Modelsim location}
+		\label{fig:ModelsimLocation}
+	\end{figure}
+
+
+ Next, click on the advance button in Fig. \ref{fig:ModelsimLocation} and a new window will pop-up. Fill the project location as shown in Fig. \ref{fig:ProjectLocationSImulation} and close the pop-up window. This location contains the `.spd' file, which is required for simulation. 
+ \begin{figure}[!h]
+ 	\centering
+ 	\includegraphics[scale=0.6]{ProjectLocationSImulation}
+ 	\caption{Search for Project Location}
+ 	\label{fig:ProjectLocationSImulation}
+ \end{figure}
+ 
+After above step, `Qsys testbench simulation package descriptor file name' column will be filled with `.spd' file automatically as shown in Fig. \ref{fig:RunSimulation}. If not, do it manually by searching the file, which is available in the project folder. If everything is correct, then apply and run buttons will be activated. Click on apply and then run button to start the simulation. 
+  \begin{figure}[!h]
+  	\centering
+  	\includegraphics[scale=0.6]{RunSimulation}
+  	\caption{Run simulation}
+  	\label{fig:RunSimulation}
+  \end{figure}
+ 
+Modelsim window will pop-up after clicking the run button, which will display all the external ports as shown in Fig. \ref{fig:modelsimPopUp}. Right click on the external signals and click on `add to wave'. Next go to transcript section at the bottom of the modelsim and type `run 3 ms'. The simulator will be run for 3 ms and we will get outputs as shown in Fig. \ref{fig:modelsimOutputs}. In the figure, there are 3 signals i.e. clock, reset and LED, where last waveform i.e. `nios\_blinkingled\_inst\_led\_external\_connection\_export' is the output waveform, which will be displayed on the LEDs. 
+
+ \begin{figure}[!h]
+ 	\centering
+ 	\includegraphics[scale=0.6]{modelsimPopUp}
+ 	\caption{Modelsim window}
+ 	\label{fig:modelsimPopUp}
+ \end{figure}
+ 
+  \begin{figure}[!h]
+  	\centering
+  	\includegraphics[scale=0.6]{modelsimOutputs}
+  	\caption{Blinking LED simulation waveform}
+  	\label{fig:modelsimOutputs}
+  \end{figure}
+
+\section{Adding the top level VHDL design}
+In last section, we designed the Nios system for blinking LED and tested it in modelsim. Now, next task is to implement this design on FPGA board. For this we, need to add a top level design, which connects all the input and output ports on the FPGA. Here, we have only three ports i.e. clock, reset and LEDs. 
+
+First add the design generated by the Qsys system to the project. For this, we need to add the `.qip' file into the project. This file can be found in `synthesis folder as shown in Fig. \ref{fig:AddQip}. 
+
+  \begin{figure}[!h]
+  	\centering
+  	\includegraphics[scale=0.6]{AddQip}
+  	\caption{Adding .qip file (available in synthesis folder)}
+  	\label{fig:AddQip}
+  \end{figure}
+
+Next, we need to add a new VHDL file for port mapping. For this, create a new VHDL file with name `blinkingLED\_VisualTest.vhd' as shown in Listing \ref{vhdl:blinkingLED_VisualTest}. Then set it as `top level entity' by right clicking it. Note that, for port-mapping, the component is declared in Lines 14-20 because Qsys generates the files in `Verilog' format. Since, we are using Verilog files in VHDL design therefore `component' declaration is required for port mapping (for more details, see the tutorial on \href{http://pythondsp.blogspot.com/2016/10/chapter-6-verilog-designs-in-vhdl.html}{Verilog designs in VHDL}). Further, this declaration and port map code can be copied from Qsys software as well, which is available on `HDL example' tab as shown in Fig. \ref{fig:qsysVHDLCode}.
+
+  \begin{figure}[!h]
+  	\centering
+  	\includegraphics[scale=0.6]{qsysCode}
+  	\caption{Copy port mapping code from Qsys}
+  	\label{fig:qsysVHDLCode}
+  \end{figure}
+
+Top level design can be implemented using `.bdf' file as well. For this go to File$\rightarrow$new$\rightarrow$Block diagram/Schematic file; and double click on the file. Next add the QSys design from the popped up window, as shown in Fig. \ref{fig:qsysBdfCode}. Then right click on the design and select `Generate Pins for Symbol Ports'. Next, assign the pin-numbers by giving proper name to input and output ports, as shown in Fig. \ref{fig:qsysBdfPinAssg}. 
+\\
+\\
+\textbf{Now, select any one of these designs (i.e. .vhd or .bdf file) as top level design. }
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.6]{1}
+	\caption{Create top level design using Block schematic method}
+	\label{fig:qsysBdfCode}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.6]{2}
+	\caption{Pin assignments for block schematic method }
+	\label{fig:qsysBdfPinAssg}
+\end{figure}
+
+
+
+\section{Load the Quartus design (i.e. .sof/.pof file)}\label{sec:AddLoadVHDL}
+Before loading the desing on FPGA board, import the pin assignments from Assignments$\rightarrow$Import assignments and select the `DE2\_PinAssg\_PythonDSP.csv' file, which is available on the website along with the codes. Lastly, compile the design and load the generated `.sof' or `.pof' file on the FPGA chip.  
+
+\lstinputlisting[
+caption    = {Top level design},
+language = Vhdl,
+label      = {vhdl:blinkingLED_VisualTest}
+]{VHDLCodes/blinkingLED_VisualTest.vhd}
+
+
+\section{Load the Nios design (i.e. `.elf' file)}\label{sec:AddLoadNIOS}
+In previous section, VHDL design is loaded on the FPGA board. This loading creates all the necessary connections on the FPGA board. Next we need to load the Nios design, i.e. `.elf file', on the board. Since 50 MHz clock is too fast for visualizing the blinking of the LED, therefore a dummy loop is added in the `main.c' file (see Lines 10 and 19) as shown in Listing \ref{c:mainVisual}. This dummy loop generates delay, hence LED does not change its state immediately. 
+
+\lstinputlisting[
+caption    = {Blinking LED with C application},
+language = C,
+label      = {c:mainVisual}
+]{CppCodes/mainVisual.c}
+
+After these changes, right click on the `Application\_blikingLED' folder and click on Run as$\rightarrow$Nios II Hardware. The may load correctly and we can see the outputs. Otherwise a window will appear as shown in Fig. \ref{fig:1run}. If neither window appears nor design loaded properly, then go to Run$\rightarrow$Run Configuration$\rightarrow$Nios II Harware and select a hardware or create a harware by double-clicking on it. 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{RunConfig1}
+	\caption{Run configuration}
+	\label{fig:1run}
+\end{figure}
+
+
+Next, go to `Target connection' tab and click on `refresh connection' and select the two ignore-boxes of `System ID checks' as shown in Fig. \ref{fig:2run}. Then click on the run button. \textbf{Keep the reset button high, while loading the design, otherwise design will not be loaded on the FPGA chip.}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.6]{RunConfig2}
+	\caption{Run configuration settings}
+	\label{fig:2run}
+\end{figure}
+
+Once Nios design is loaded successfully, then `Blinking LED' will be displayed on the `Nios II console'. Now if we change the reset to `0' and then `1' again; then the message will be displayed again as shown in Fig. \ref{fig:FinalOutput}. Further, bilking LED can be seen after this process. 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=1]{FinalOutput}
+	\caption{Final outputs}
+	\label{fig:FinalOutput}
+\end{figure}
+
+\section{Saving NIOS-console's data to file}
+In Section \ref{sec:AddLoadNIOS}, the message `Blinking LED' is displayed on the NIOS console. Most of the time, we need to store the data in a file for further processing e.g. in Chapter \ref{ch:UartSdramPython}, sine waveforms are generated using NIOS, and the resulted data is saved in a file and then plotted using Python; note that this plotting operation can not be performed when data in displayed on the NIOS console. 
+
+Please see the ``video \href{https://www.youtube.com/playlist?list=PLpqu8JfoNKiNJpFvKTeBlI-LMzc2TAlRM}{NIOS II - Save data to the file using JTAG-UART}'', if you have problem with this part of tutorial. 
+
+To save the data on a file, first build the project as discussed in the Section \ref{sec:AddApplication}. Next, right click on the `Application\_BlinkingLED' and go to `NIOS II$\rightarrow$NIOS II Command Shell'. Then, in the command prompt, execute the following two commands, 
+\begin{enumerate}
+	\item \textbf{nios2-download -g Application\_BlinkingLED.elf}  : This will load the NIOS design on the FPGA board. 
+	
+	\item \textbf{nios2-terminal.exe $-$q $--$quiet $>$ blinkOut.txt} : This will save the messages in the file `blinkOut.txt', which will be saved in the `Application\_BlinkingLED' folder. We can now, reset the system and `Blinking LED' message will be displayed twice as shown in Fig. \ref{fig:FinalOutput}. 
+	\item \textbf{`$-$q $--$quiet'} options is used to suppress the NIOS-generated message in the file. For more options, we can use `$--$help' option e.g. \textbf{nios2-terminal $--help$}. 
+	
+	\item Lastly, `$>$ sign'  erases the contents of existing file before writing in it. To append the current outputs at the end of the existing file, use `$>>$' option, instead of `$>$'. 
+		
+	\item We can run these two commands in one step using `$\&\&$'  operators i.e. 
+	\\
+	\\
+	 \textbf{nios2-download -g Application\_BlinkingLED.elf $\&\&$  nios2-terminal.exe $-$q $--$quiet $>$ ../../python/data/blinkOut.txt}.
+	 \\
+	 \\
+	 In this case, `\textbf{../../python/data/blinkOut.txt}' command will save the `blinkOut.txt' file by going two folders-back i.e. `\textbf{../../}', then it will save the file in `data' folder which is inside the `python' folder. In this way, we can save the results at any location. 
+	
+\end{enumerate}
+
+\section{Conclusion}
+In this tutorial, we saw various steps to create a embedded Nios processor design. We design the system for blinking the LED and displaying the message on the `Nios II console' window. Also, we learn the simulation methods for Nios-II designs. In next chapter, we will learn about adding components to the `Qsys' file. Also, we will see the process of updating the BSP according to new `.sopcinfo' file. 

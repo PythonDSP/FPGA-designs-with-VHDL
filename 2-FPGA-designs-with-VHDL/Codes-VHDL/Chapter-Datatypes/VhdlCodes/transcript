@@ -1,0 +1,101 @@
+# Reading C:/InstalledPrograms/altera/ModelSim/modelsim_ase/tcl/vsim/pref.tcl 
+# OpenFile D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/compositeTypeEx.vhd 
+vcom -reportprogress 300 -work work D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/compositeTypeEx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity compositeTypeEx
+# -- Compiling architecture arch of compositeTypeEx
+vsim -voptargs=+acc work.compositetypeex
+# vsim -voptargs=+acc work.compositetypeex 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.compositetypeex(arch)
+add wave -position insertpoint sim:/compositetypeex/*
+add wave -position insertpoint sim:/compositetypeex/*
+add wave -position insertpoint sim:/compositetypeex/*
+force a 0
+force b 1
+force c 10
+force d 11
+run
+vcom -reportprogress 300 -work work D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/genericEx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity genericEx
+# -- Compiling architecture arch of genericEx
+vcom -reportprogress 300 -work work D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/genericEx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity genericEx
+# -- Compiling architecture arch of genericEx
+vcom -reportprogress 300 -work work D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/genericEx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity genericEx
+# ** Error: D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/genericEx.vhd(10): near ")": expecting FUNCTION or PROCEDURE or IMPURE or PURE
+vcom -reportprogress 300 -work work D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/genericEx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity genericEx
+# -- Compiling architecture arch of genericEx
+vcom -reportprogress 300 -work work D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/dataTypeEx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity dataTypeEx
+# -- Compiling architecture arch of dataTypeEx
+vcom -reportprogress 300 -work work D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/dataTypeEx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity dataTypeEx
+# -- Compiling architecture arch of dataTypeEx
+vsim -voptargs=+acc work.datatypeex
+# vsim -voptargs=+acc work.datatypeex 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.datatypeex(arch)
+add wave -position insertpoint sim:/datatypeex/*
+force writeData 010
+run
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /datatypeex
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /datatypeex
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 1  Instance: /datatypeex
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 2  Instance: /datatypeex
+vcom -reportprogress 300 -work work D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/dataTypeEx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity dataTypeEx
+# ** Error: D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/dataTypeEx.vhd(15): (vcom-1136) Unknown identifier "W".
+# 
+# ** Error: D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/dataTypeEx.vhd(15): Bad expression in left bound of range expression.
+# ** Error: D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/dataTypeEx.vhd(15): Type error in range expression.
+# ** Error: D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/dataTypeEx.vhd(16): (vcom-1136) Unknown identifier "W".
+# 
+# ** Error: D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/dataTypeEx.vhd(16): Bad expression in left bound of range expression.
+# ** Error: D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/dataTypeEx.vhd(16): Type error in range expression.
+# ** Error: D:/pythondsp/VHDL/Chapters/Datatypes/VHDLCodes/Datatypes/VhdlCodes/dataTypeEx.vhd(18): VHDL Compiler exiting

@@ -1,0 +1,3 @@
+Printing values
+a = 1, b = 40
+Thank you

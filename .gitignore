@@ -1,0 +1,28 @@
+### C ##########
+*.exe
+
+### VHDL ########
+*.bak
+*work  # work folder
+
+### Latex #########
+*.gz
+*.aux
+*.idx
+*.log
+*.nlo
+*.out
+*.toc
+
+
+
+
+########### Manual changes based on Project ############
+
+# latex pdf file
+FPGA-designs-with-VHDL.pdf
+
+# codes.zip
+Codes-VHDL.zip
+
+

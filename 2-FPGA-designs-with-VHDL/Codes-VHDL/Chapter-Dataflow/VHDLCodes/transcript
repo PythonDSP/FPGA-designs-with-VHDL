@@ -1,0 +1,55 @@
+# Reading C:/InstalledPrograms/altera/ModelSim/modelsim_ase/tcl/vsim/pref.tcl 
+# OpenFile D:/pythondsp/VHDL/VHDL/Chapters/Dataflow/VHDLCodes/Dataflow/VHDLCodes/multiplexerEx.vhd 
+vlib work
+vcom -reportprogress 300 -work work D:/pythondsp/VHDL/VHDL/Chapters/Dataflow/VHDLCodes/Dataflow/VHDLCodes/multiplexerEx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity multiplexerEx
+# -- Compiling architecture dataflow of multiplexerEx
+vsim -voptargs=+acc work.multiplexerex
+# vsim -voptargs=+acc work.multiplexerex 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.multiplexerex(dataflow)
+add wave -position insertpoint sim:/multiplexerex/*
+force -freeze sim:/multiplexerex/s 00 0
+force -freeze sim:/multiplexerex/i0 1 0
+force -freeze sim:/multiplexerex/i1 0 0
+force -freeze sim:/multiplexerex/i2 1 0
+force -freeze sim:/multiplexerex/i3 0 0
+run
+forc s 01
+run
+force s 10
+run
+force s 11
+run
+vcom -reportprogress 300 -work work D:/pythondsp/VHDL/VHDL/Chapters/BehavioralModeling/VHDLCodes/BehavioralModeling/VHDLCodes/ifLoop.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity ifLoop
+# -- Compiling architecture behave of ifLoop
+vsim -voptargs=+acc work.ifloop
+# vsim -voptargs=+acc work.ifloop 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.ifloop(behave)
+add wave -position insertpoint sim:/ifloop/*
+force -freeze sim:/ifloop/clk 1 0, 0 {50 ps} -r 100
+force -freeze sim:/ifloop/x 0111 0
+run
+run
+run
+run
+run
+run
+run
+run

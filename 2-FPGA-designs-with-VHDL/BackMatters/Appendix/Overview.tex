@@ -1,0 +1,88 @@
+\chapter{Script execution in Quartus and Modelsim}\label{QuartusModelsim}
+\chapterquote{Who says God has created this world? We have created it by our own imagination. God is supreme, independent. When we say he has created this illusion, we lower him and his infinity. He is beyond all this.Only when we find him in ourselves, and even in our day to day life, do all doubts vanish.}{Meher Baba}
+
+\graphicspath{{Chapters/Overview/Figures/}}
+%\lstinputpath{Chapters/Overview/VHDLCodes/Overview/VHDLCodes}
+
+To use the codes of the tutorial, Quartus and Modelsim softwares are discussed here. Please see the ``video \href{https://www.youtube.com/playlist?list=PLpqu8JfoNKiNJpFvKTeBlI-LMzc2TAlRM}{Create and simulate projects using Quartus and Modelsim}'', if you have problem in using  Quartus or Modelsim software. 
+
+\section{Quartus}
+In this section, `RTL view generation' and `loading the design on FPGA board' are discussed. 
+
+\subsection{Generating the RTL view}
+The execute the codes, open the `overview.qpf' using Quartus software. Then go to the files and right-click on the vhdl file to which you want to execute and click on `Set as Top-Level Entity' as shown in Fig. \ref{fig:Quartus}. Then press `ctrl+L' to start the compilation. 
+
+To generate the designs, go to \textbf{Tools$\rightarrow$Netlist Viewer$\rightarrow$RTL Viewer}; and it will display the design. 
+
+\subsection{Loading design on FPGA board}
+Quartus software generates two types of files after compilation i.e. `.sof' and `.pof' file. These files are used to load the designs on the FPGA board. Note that `.sof' file are erased once we turn off the FPGA device; whereas `.pof' files are permanently loaded (unless removed or overwrite manually). For loading the design on the FPGA board, we need to make following two changes which are board specific, 
+\begin{enumerate}
+	\item First, we need to select the board by clicking on \textbf{Assignments$\rightarrow$Device}, and then select the correct board from the list. 
+	\item Next, connect the input/output ports of the design to FPGA board by clicking on \textbf{Assignments$\rightarrow$Pin Planner}. It will show all the input and output ports of the design and we need to fill `location' column for these ports. 
+	
+	\item To load the design on FPGA board, go to \textbf{Tools$\rightarrow$Programmer}. 
+	\item Then select JTAG mode to load the `.sof' file; or `Active Serial Programming' mode for loading the `.pof' file. Then click on `add file' and  select the `.sof/.pof' file and click on `start'. In this way, the design will be loaded on FGPA board. 
+\end{enumerate}
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.8]{Quartus}
+	\caption{Quartus}
+	\label{fig:Quartus}
+\end{figure}
+
+
+\section{Modelsim}
+We can also verify the results using modelsim. Follow the below steps for generating the waveforms, 
+
+\begin{enumerate}
+	\item First, open the modelsim and click on `compile' button and select all (or desired) files; then press `Compile' and `Done' buttons. as shown in Fig. \ref{fig:Modelsim}.
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=\textwidth]{ModelsimSimulate}
+		\caption{Modelsim: Compile and Simulate}
+		\label{fig:Modelsim}
+	\end{figure}
+	
+	\item Above step will show the compile files inside the `work library' on the library panel; then right click the desired file (e.g. comparator2Bit.vhd) and press `simulate',  as shown on the left hand side of the Fig. \ref{fig:Modelsim}. This will open a new window as shown in Fig. \ref{fig:ModelsimWave}. 
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=\textwidth]{ModelsimWave}
+		\caption{Modelsim: Waveforms}
+		\label{fig:ModelsimWave}
+	\end{figure}
+	
+	\item  Right click the name of the entity (or desired signals for displaying) and click on `Add wave', as shown in Fig. \ref{fig:ModelsimWave}. This will show all the signals on the `wave default' panel. 
+	
+	\item Now go to transcript window, and write following command there as shown in the bottom part of the Fig. \ref{fig:ModelsimWave}. Note that these commands are applicable for 2-bit comparators only; for 1-bit comparator assign values of 1 bit i.e. `force a 1' etc. 
+	\\
+	\textbf{force a 00}
+	\\
+	\textbf{force b 01}
+	\\
+	\textbf{run}
+	\\
+	\\
+	Above lines with assign the value 00 and 01 to inputs `a' and `b' respectively. `run' command will run the code and since `a' and `b' are not equal in this case, therefore `eq' will be set to zero and the waveforms will be displayed on `wave-default' window, as shown in Fig. \ref{fig:ModelsimWave}.  Next, run following commands, 
+	\\
+	\textbf{force a 01}
+	\\
+	\textbf{run}
+	\\
+	\\
+	Now `a' and `b' are equal therefore `eq' will be set to 1 for this case. In this way we can verify the designs using Modelsim. 
+	
+\end{enumerate} 
+
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=\textwidth]{Modelsim}
+%	\caption{Modelsim: Compile the designs}
+%	\label{fig:Modelsim}
+%\end{figure}
+
+
+

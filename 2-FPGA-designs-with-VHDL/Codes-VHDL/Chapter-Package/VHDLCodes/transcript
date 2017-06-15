@@ -1,0 +1,43 @@
+# Reading C:/InstalledPrograms/altera/ModelSim/modelsim_ase/tcl/vsim/pref.tcl 
+# OpenFile D:/pythondsp/VHDL/VHDL/Chapters/Package/VHDLCodes/Package/VHDLCodes/procedureEx.vhd 
+vcom -reportprogress 300 -work work D:/pythondsp/VHDL/VHDL/Chapters/Package/VHDLCodes/Package/VHDLCodes/procedureEx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity procedureEx
+# -- Compiling architecture arch of procedureEx
+vsim -voptargs=+acc work.procedureex
+# vsim -voptargs=+acc work.procedureex 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.procedureex(arch)
+add wave -position insertpoint sim:/procedureex/*
+add wave -position insertpoint sim:/procedureex/*
+force -freeze sim:/procedureex/x 0011 0
+force -freeze sim:/procedureex/y 0001 0
+force -freeze sim:/procedureex/y 0001 0
+run
+vcom -reportprogress 300 -work work D:/pythondsp/VHDL/VHDL/Chapters/Package/VHDLCodes/Package/VHDLCodes/procedureEx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity procedureEx
+# -- Compiling architecture arch of procedureEx
+vsim -voptargs=+acc work.procedureex
+# vsim -voptargs=+acc work.procedureex 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.procedureex(arch)
+add wave -position insertpoint sim:/procedureex/*
+force -freeze sim:/procedureex/x 10 0
+force -freeze sim:/procedureex/y 01 0
+run
+run

@@ -1,0 +1,126 @@
+%%%% Comment below for if using book or report %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Memoir Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\documentclass[12pt,a4paper, oneside]{memoir}
+%
+%%%%% spacing: choose one
+%\OnehalfSpacing
+%%%%\DoubleSpacing
+%%%%\SingleSpacing
+%
+%%%add number to subsubsection
+%\setsecnumdepth{subsubsection}
+%
+%%%% Table of content upto 2=subsection, 3=subsubsection
+%\setcounter{tocdepth}{2}
+%
+%%%% Add word Appendix in TOC e.g. Appendix A etc.
+%\renewcommand\cftappendixname{\appendixname~}
+%\renewcommand{\bf}{\textbf}
+%\renewcommand{\rm}{{ \ }}
+%
+%%%page style
+%\let\footruleskip\undefined
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[10pt,a4paper,oneside]{book}
+%%%\documentclass[12pt,a4paper,oneside]{report}
+
+
+%%%add number to subsubsection 2=subsection, 3=subsubsection
+%%% below subsubsection is not good idea.
+\setcounter{secnumdepth}{3}
+%
+%%%% Table of content upto 2=subsection, 3=subsubsection
+\setcounter{tocdepth}{2}
+
+%%%%%================= Preamble============================
+
+\input{Classes/preamble}
+\input{Classes/mypreamble} %Define your preamble here
+
+\begin{document}
+	
+%%%%========================Title Page====================
+\input{title-page/title-page}
+
+%%%%========================Front matter====================
+
+\pagenumbering{roman}
+
+%%%Theis style 
+% \include{FrontMatters/acknowledgement}
+% \include{FrontMatters/abstract}
+% \include{FrontMatters/declaration}
+% \include{FrontMatters/dedication}
+% \include{FrontMatters/Publications}
+% \include{FrontMatters/NonemClatureList}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% begin group%%%%%%%%%%%%%%%%%%%%
+\begingroup %%% no page will be change upto \endgroup
+\let\clearpage\relax
+
+% Table of content, figures and tables
+\tableofcontents
+%\listoffigures
+%\listoftables
+%\lstlistoflistings
+%
+%%% add both ()theorem,theoremColor).. do not place space between {theorem,theoremColor}
+%\listoftheorems[ignoreall,show={theorem,theoremColor}] 
+%%% add list of definition definition (defined in mypreambles)
+%\listofdefinitions
+
+\endgroup
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% end group%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\addcontentsline{toc}{chapter}{Nomenclature}
+%% uncomment below print nomenclature
+\printnomenclature
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%======================Main matter===========================
+\clearpage
+\pagenumbering{arabic}
+\include{Chapters/FirstProject/FirstProject}
+\include{Chapters/Overview/Overview}
+\include{Chapters/Datatypes/Datatypes}
+\include{Chapters/Dataflow/Dataflow}
+\include{Chapters/BehavioralModeling/BehavioralModeling}
+\include{Chapters/Package/Package}
+\include{Chapters/VerilogWithVhdl/VerilogWithVhdl}
+\include{Chapters/VVD/VVD} % Visual Verifications Of Designs
+\include{Chapters/FSM/FSM}
+\include{Chapters/Testbench/Testbench}
+\include{Chapters/NiosOverview/NiosOverview}
+\include{Chapters/NiosReadSwitch/NiosReadSwitch}
+\include{Chapters/UartSdramPython/UartSdramPython}
+\include{Chapters/NiosCustomIO/NiosCustomIO}
+\include{Chapters/DesignExamples/DesignExamples}
+
+% packages
+% test benches
+% examples
+
+%%======================Back matter================================
+
+%%%%%%%%%%%%%%%% Bibliography %%%%%%%%%%%%%%
+%\include{BackMatters/References/References}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%% Appendix %%%%%%%%%%%%%%%%%%%%%%%%
+\include{BackMatters/Appendix/Appendix}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% uncomment below for index %%%%%%%
+\printindex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+\end{document}

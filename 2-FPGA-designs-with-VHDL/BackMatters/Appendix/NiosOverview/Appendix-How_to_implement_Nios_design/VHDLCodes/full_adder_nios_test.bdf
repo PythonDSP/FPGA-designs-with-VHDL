@@ -1,0 +1,276 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2011 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "graphic" (version "1.4"))
+(pin
+	(input)
+	(rect 32 240 200 256)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "reset" (rect 5 0 29 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+	(annotation_block (location)(rect -24 256 32 272))
+)
+(pin
+	(input)
+	(rect 32 200 200 216)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "clk" (rect 5 0 19 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+	(annotation_block (location)(rect -24 216 32 232))
+)
+(pin
+	(output)
+	(rect 184 432 360 448)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "sum" (rect 90 0 111 12)(font "Arial" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+	(annotation_block (location)(rect 360 448 408 464))
+)
+(pin
+	(output)
+	(rect 184 448 360 464)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "carry" (rect 90 0 115 12)(font "Arial" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+	(annotation_block (location)(rect 360 464 408 480))
+)
+(pin
+	(output)
+	(rect 24 280 200 296)
+	(text "OUTPUT" (rect 137 6 175 16)(font "Arial" (font_size 6)))
+	(text "adder_input[2..0]" (rect 5 4 87 16)(font "Arial" ))
+	(pt 176 8)
+	(drawing
+		(line (pt 176 8)(pt 124 8))
+		(line (pt 124 12)(pt 98 12))
+		(line (pt 124 4)(pt 98 4))
+		(line (pt 124 4)(pt 124 12))
+		(line (pt 98 12)(pt 94 8))
+		(line (pt 94 8)(pt 98 4))
+		(line (pt 98 4)(pt 94 8))
+	)
+	(rotate180)
+)
+(symbol
+	(rect 48 408 144 504)
+	(text "full_adder_sch" (rect 5 0 76 12)(font "Arial" ))
+	(text "inst" (rect 8 80 25 92)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "a" (rect 0 0 5 12)(font "Arial" ))
+		(text "a" (rect 21 27 26 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "b" (rect 0 0 5 12)(font "Arial" ))
+		(text "b" (rect 21 43 26 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "c" (rect 0 0 5 12)(font "Arial" ))
+		(text "c" (rect 21 59 26 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 96 32)
+		(output)
+		(text "sum" (rect 0 0 21 12)(font "Arial" ))
+		(text "sum" (rect 58 27 79 39)(font "Arial" ))
+		(line (pt 96 32)(pt 80 32))
+	)
+	(port
+		(pt 96 48)
+		(output)
+		(text "carry" (rect 0 0 25 12)(font "Arial" ))
+		(text "carry" (rect 54 43 79 55)(font "Arial" ))
+		(line (pt 96 48)(pt 80 48))
+	)
+	(drawing
+		(rectangle (rect 16 16 80 80))
+	)
+)
+(symbol
+	(rect 200 136 744 400)
+	(text "full_adder_qsys" (rect 225 -1 331 15)(font "Arial" (font_size 10)))
+	(text "inst2" (rect 8 248 31 260)(font "Arial" ))
+	(port
+		(pt 0 72)
+		(input)
+		(text "clk_clk" (rect 0 0 37 14)(font "Arial" (font_size 8)))
+		(text "clk_clk" (rect 4 61 41 75)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 240 72))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "reset_reset_n" (rect 0 0 80 14)(font "Arial" (font_size 8)))
+		(text "reset_reset_n" (rect 4 101 84 115)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 240 112))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "sum_external_connection_export" (rect 0 0 189 14)(font "Arial" (font_size 8)))
+		(text "sum_external_connection_export" (rect 4 181 193 195)(font "Arial" (font_size 8)))
+		(line (pt 0 192)(pt 240 192))
+	)
+	(port
+		(pt 0 232)
+		(input)
+		(text "carry_external_connection_export" (rect 0 0 197 14)(font "Arial" (font_size 8)))
+		(text "carry_external_connection_export" (rect 4 221 201 235)(font "Arial" (font_size 8)))
+		(line (pt 0 232)(pt 240 232))
+	)
+	(port
+		(pt 0 152)
+		(output)
+		(text "adder_input_external_connection_export[2..0]" (rect 0 0 261 14)(font "Arial" (font_size 8)))
+		(text "adder_input_external_connection_export[2..0]" (rect 4 141 265 155)(font "Arial" (font_size 8)))
+		(line (pt 0 152)(pt 240 152)(line_width 3))
+	)
+	(drawing
+		(text "clk" (rect 225 43 242 58)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 245 67 259 79)(font "Arial" (color 0 0 0)))
+		(text "reset" (rect 211 83 244 98)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "reset_n" (rect 245 107 281 119)(font "Arial" (color 0 0 0)))
+		(text "adder_input_external_connection" (rect 49 123 264 138)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 245 147 275 159)(font "Arial" (color 0 0 0)))
+		(text "sum_external_connection" (rect 93 163 260 178)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 245 187 275 199)(font "Arial" (color 0 0 0)))
+		(text "carry_external_connection" (rect 89 203 257 218)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 245 227 275 239)(font "Arial" (color 0 0 0)))
+		(text " full_adder_qsys " (rect 471 248 557 260)(font "Arial" ))
+		(line (pt 241 52)(pt 241 76))
+		(line (pt 242 52)(pt 242 76))
+		(line (pt 241 92)(pt 241 116))
+		(line (pt 242 92)(pt 242 116))
+		(line (pt 241 132)(pt 241 156))
+		(line (pt 242 132)(pt 242 156))
+		(line (pt 241 172)(pt 241 196))
+		(line (pt 242 172)(pt 242 196))
+		(line (pt 241 212)(pt 241 236))
+		(line (pt 242 212)(pt 242 236))
+		(line (pt 240 32)(pt 304 32))
+		(line (pt 304 32)(pt 304 248))
+		(line (pt 240 248)(pt 304 248))
+		(line (pt 240 32)(pt 240 248))
+		(line (pt 0 0)(pt 544 0))
+		(line (pt 544 0)(pt 544 264))
+		(line (pt 0 264)(pt 544 264))
+		(line (pt 0 0)(pt 0 264))
+	)
+)
+(connector
+	(text "adder_input[0]" (rect -64 424 5 436)(font "Arial" ))
+	(pt 48 440)
+	(pt 0 440)
+)
+(connector
+	(text "adder_input[1]" (rect -64 448 5 460)(font "Arial" ))
+	(pt 48 456)
+	(pt 0 456)
+)
+(connector
+	(text "adder_input[2]" (rect -64 472 5 484)(font "Arial" ))
+	(pt 48 472)
+	(pt 0 472)
+)
+(connector
+	(pt 160 440)
+	(pt 160 328)
+)
+(connector
+	(pt 168 456)
+	(pt 168 368)
+)
+(connector
+	(pt 160 328)
+	(pt 200 328)
+)
+(connector
+	(pt 168 368)
+	(pt 200 368)
+)
+(connector
+	(pt 144 440)
+	(pt 160 440)
+)
+(connector
+	(pt 160 440)
+	(pt 184 440)
+)
+(connector
+	(pt 144 456)
+	(pt 168 456)
+)
+(connector
+	(pt 168 456)
+	(pt 184 456)
+)
+(junction (pt 160 440))
+(junction (pt 168 456))
+(text "adder_input[0] etc." (rect -160 448 -54 462)(font "Arial" (color 255 0 0)(font_size 8)))
+(text "1. Right click on wire" (rect -160 400 -42 414)(font "Arial" (color 255 0 0)(font_size 8)))
+(text "2. Select properties" (rect -160 416 -50 430)(font "Arial" (color 255 0 0)(font_size 8)))
+(text "3. Name the wire e.g.. " (rect -160 432 -32 446)(font "Arial" (color 255 0 0)(font_size 8)))
+(text "This output is send to " (rect 24 304 149 318)(font "Arial" (color 255 0 0)(font_size 8)))
+(text "input of full adder by" (rect 24 320 140 334)(font "Arial" (color 255 0 0)(font_size 8)))
+(text "using correct name" (rect 24 336 133 350)(font "Arial" (color 255 0 0)(font_size 8)))
