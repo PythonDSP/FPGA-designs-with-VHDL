@@ -120,3 +120,60 @@
 
 %%% Multicolumns
 \usepackage{multicol}
+
+%%% Algorithms
+\usepackage[chapter]{algorithm}
+\usepackage{algpseudocode}
+
+
+%%%%%%%%%%% datetime
+\usepackage{datetime}
+
+\newdateformat{MonthYearFormat}{%
+	\monthname[\THEMONTH], \THEYEAR}
+
+%%%%%%%%%%%%%% latexdiff %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% Intall 'perl' for using latexdiff %%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%% Following are the options to run 'latexdiff' command : -
+%%%%%%%%%%%     --math-markup=3 or --math-markup=1 are recommended
+%% suppress differences for equation
+% latexdiff --math-markup=0 --exclude-textcmd="section,subsection,enumerate" location_of_original_file/fileName.tex location_of_modified_file/fileName.tex > location_of_diffrence_file/fileName.tex
+%% or use below
+% latexdiff-so --math-markup=0 --exclude-textcmd="section,subsection,enumerate" location_of_original_file/fileName.tex location_of_modified_file/fileName.tex > location_of_diffrence_file/fileName.tex
+
+%% display complete equation again
+% latexdiff --math-markup=1 --exclude-textcmd="section,subsection,enumerate" location_of_original_file/fileName.tex location_of_modified_file/fileName.tex > location_of_diffrence_file/fileName.tex
+% latexdiff-so --math-markup=1 --exclude-textcmd="section,subsection,enumerate" location_of_original_file/fileName.tex location_of_modified_file/fileName.tex > location_of_diffrence_file/fileName.tex
+
+%% default
+% latexdiff --math-markup=2 --exclude-textcmd="section,subsection,enumerate" location_of_original_file/fileName.tex location_of_modified_file/fileName.tex > location_of_diffrence_file/fileName.tex
+% latexdiff-so --math-markup=2 --exclude-textcmd="section,subsection,enumerate" location_of_original_file/fileName.tex location_of_modified_file/fileName.tex > location_of_diffrence_file/fileName.tex
+
+%% display only changed part of equation
+% latexdiff --math-markup=3 --exclude-textcmd="section,subsection,enumerate" location_of_original_file/fileName.tex location_of_modified_file/fileName.tex > location_of_diffrence_file/fileName.tex
+% latexdiff-so --math-markup=3 --exclude-textcmd="section,subsection,enumerate" location_of_original_file/fileName.tex location_of_modified_file/fileName.tex > location_of_diffrence_file/fileName.tex
+
+%%%%%%%%%%%%%%% package setting for latexdiff
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
+
+%%%%%%%%%%%%%% latexdiff end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

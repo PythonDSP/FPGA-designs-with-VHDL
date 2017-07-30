@@ -1,9 +1,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% Table of Content Settings %%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{tocbibind} %%% comment this to remove page number for following
-\renewcommand{\contentsname}{Table of contents} %% change name
-\renewcommand{\listfigurename}{List of figures}
-\renewcommand{\listtablename}{List of tables}
+\renewcommand{\contentsname}{Table of Contents} %% change name
+\renewcommand{\listfigurename}{List of Figures}
+\renewcommand{\listtablename}{List of Tables}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \renewcommand{\chaptername}{Chapter}
@@ -72,9 +72,13 @@ headpunct={}, %%% . is removed after posthead.
 \declaretheorem[numbered=no,qed=$\blacktriangle$]{explanation}
 \declaretheorem[sibling=theorem,shaded={bgcolor=Apricot,textwidth=\columnwidth}, name=Theorem]{theoremColor}
 
-\declaretheorem[style=TheoremStyle,qed=$\bullet$,shaded={bgcolor=Cyan,textwidth=\columnwidth}]{definition}
+\declaretheorem[style=TheoremStyle,qed=$\bullet$]{definition}
+%% definition in blue
+%\declaretheorem[style=TheoremStyle,qed=$\bullet$,shaded={bgcolor=Cyan,textwidth=\columnwidth}]{definition}
 
-\declaretheorem[style=TheoremStyle,shaded={bgcolor=red,textwidth=\columnwidth}]{example}
+\declaretheorem[style=TheoremStyle]{example}
+%% for red color
+%\declaretheorem[style=TheoremStyle,shaded={bgcolor=red,textwidth=\columnwidth}]{example}
 
 \declaretheorem[style=TheoremStyle]{lemma}
 
@@ -83,15 +87,16 @@ headpunct={}, %%% . is removed after posthead.
 \declaretheorem[style=TheoremStyle,qed=$\bullet$,name=Python Code]{pycode}
 \declaretheorem[style=TheoremStyle, name=Example]{pyExmp}
 \declaretheorem[style=TheoremStyle]{preposition}
-\declaretheorem[style=TheoremStyle]{algorithm}
 
 \declaretheorem[style=TheoremStyle, qed=$\bigstar$, name={Note}]{note}
-\declaretheorem[sibling=note,shaded={rulecolor=Black,
-	rulewidth=2pt, bgcolor=pink}, name={Note}]{noteBox}
+\declaretheorem[sibling=note, name={Note}]{noteBox}
+%% notebox in pink
+%\declaretheorem[sibling=note,shaded={rulecolor=Black,	rulewidth=2pt, bgcolor=pink}, name={Note}]{noteBox}
 
 \declaretheorem[style=TheoremStyle, qed=$\bigstar$, name=Property]{property}
-\declaretheorem[sibling=property, qed=$\bigstar$,shaded={rulecolor=Black,
-	rulewidth=2pt, bgcolor=green},name=Property]{propertyBox}
+\declaretheorem[sibling=property, qed=$\bigstar$,name=Property]{propertyBox}
+%% property box in green
+%\declaretheorem[sibling=property, qed=$\bigstar$,shaded={rulecolor=Black, 	rulewidth=2pt, bgcolor=green},name=Property]{propertyBox}
 
 \declaretheorem[style=PropertyStyle,shaded={rulecolor=Black,
 	rulewidth=2pt, bgcolor=white}, name={}]{noNumBox}
@@ -99,7 +104,7 @@ headpunct={}, %%% . is removed after posthead.
 
 
 
-%%%%%%%%% add more commads like this->"\listofdefinitions" for table of conten
+%%%%%%%%% add more commads like this->"\listofdefinitions" for table of content
 \newcommand{\listofdefinitions}{\renewcommand{\listtheoremname}{List of Definitions}\listoftheorems[ignoreall,show={definition}]}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% new definition end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
