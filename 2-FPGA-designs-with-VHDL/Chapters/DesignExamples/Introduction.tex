@@ -153,8 +153,24 @@ caption    = {Serial to parallel converter},
 label      = {vhdl:serial_to_parallel}
 ]{serial_to_parallel.vhd}
 
+\subsection{Top level connection between serial and parallel converters}
+In Listing \ref{vhdl:parallel_and_serial_top_v1}, the parallel-counter-data is converted into serial data using Listing \ref{vhdl:parallel_to_serial}. Then received serial data is converted back to parallel data by Listing \ref{vhdl:serial_to_parallel}. The simulation results are shown in Fig. \ref{fig:parallel_and_serial_top_v1}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Connection between serial and parallel converters},
+label      = {vhdl:parallel_and_serial_top_v1}
+]{parallel_and_serial_top_v1.vhd}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{parallel_and_serial_top_v1}
+	\caption{Simulation results for Listing \ref{vhdl:parallel_and_serial_top_v1}}
+	\label{fig:parallel_and_serial_top_v1}
+\end{figure}
+
 \subsection{Visual test for serial and parallel converters}
-In Listing \ref{vhdl:parallel_and_serial_top_visual_v1}, the parallel-counter-data is converted into serial data using Listing \ref{vhdl:parallel_to_serial} and output are shown in LEDR. Then received serial data is converted back to parallel data by Listing \ref{vhdl:serial_to_parallel} and outputs are shown in LEDG.
+In Listing \ref{vhdl:parallel_and_serial_top_visual_v1}, the reduced clock-rate is applied to Listing \ref{vhdl:parallel_and_serial_top_v1}, so that output can be seen on LEDs. Here, generated counter outputs are displayed on LEDG, whereas the received outputs (i.e. after conversion) are displayed on LEDG. 
 
 \lstinputlisting[
 language = Vhdl,
