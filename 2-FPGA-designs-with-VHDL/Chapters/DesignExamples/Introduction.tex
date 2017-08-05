@@ -135,10 +135,32 @@ label      = {vhdl:shift_register_visualTest}
 ]{shift_register_visualTest.vhd}
 
 \subsection{Parallel to serial converter}
-If data is loaded first (i.e. ctrl = ``11''), and later shift operation is performed (i.e.. ctrl = ``01'' or ``10''); then Listing \ref{vhdl:shift_register} will work as `parallel to serial converter'. 
+If data is loaded first (i.e. ctrl = ``11''), and later shift operation is performed (i.e.. ctrl = ``01'' or ``10''); then Listing \ref{vhdl:shift_register} will work as `parallel to serial converter'. In Listing \ref{vhdl:parallel_to_serial} shows the parallel to serial converter which is tested in Listing \ref{vhdl:parallel_and_serial_top_visual_v1}.
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Parallel to serial converter},
+label      = {vhdl:parallel_to_serial}
+]{parallel_to_serial.vhd}
+
 
 \subsection{Serial to parallel converter}
-If shifting is performed first (i.e.. ctrl = ``01'' or ``10''), and later data is read (i.e. ctrl = ``00''); then Listing \ref{vhdl:shift_register} will work as `serial to parallel converter'.
+If shifting is performed first (i.e.. ctrl = ``01'' or ``10''), and later data is read (i.e. ctrl = ``00''); then Listing \ref{vhdl:shift_register} will work as `serial to parallel converter'. In Listing \ref{vhdl:serial_to_parallel} shows the serial to parallel converter which is tested in Listing \ref{vhdl:parallel_and_serial_top_visual_v1}.
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Serial to parallel converter},
+label      = {vhdl:serial_to_parallel}
+]{serial_to_parallel.vhd}
+
+\subsection{Visual test for serial and parallel converters}
+In Listing \ref{vhdl:parallel_and_serial_top_visual_v1}, the parallel-counter-data is converted into serial data using Listing \ref{vhdl:parallel_to_serial} and output are shown in LEDR. Then received serial data is converted back to parallel data by Listing \ref{vhdl:serial_to_parallel} and outputs are shown in LEDG.
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Visual test for serial and parallel converters},
+label      = {vhdl:parallel_and_serial_top_visual_v1}
+]{parallel_and_serial_top_visual_v1.vhd}
 
 \section{Random access memory (RAM)}
 RAM is memory cells which are used to store or retrieve the data. Further, FPGA chips have separate RAM modules which can be used to design memories of different sizes and types, as shown in this section. VHDL files required for this example are listed below, 
