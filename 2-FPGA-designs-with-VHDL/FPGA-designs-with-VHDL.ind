@@ -8,16 +8,18 @@
 
   \indexspace
 
-  \item composite type, \hyperpage{27}
-  \item constant, \hyperpage{25}
+  \item composite type, \hyperpage{29}
+  \item constant, \hyperpage{27}
 
   \indexspace
 
-  \item data objects, \hyperpage{25}
-  \item data types, \hyperpage{25}
-    \subitem composite type, \hyperpage{27}
-    \subitem scalar, \hyperpage{26}
+  \item data objects, \hyperpage{26}
+  \item data types, \hyperpage{27}
+    \subitem composite type, \hyperpage{29}
+    \subitem scalar, \hyperpage{27}
   \item dataflow modeling, \hyperpage{15}
+  \item deferred constants, \hyperpage{27}
+  \item downto, \hyperpage{25}
 
   \indexspace
 
@@ -25,11 +27,11 @@
 
   \indexspace
 
-  \item file, \hyperpage{25}
+  \item file, \hyperpage{27}
 
   \indexspace
 
-  \item generic, \hyperpage{30}
+  \item generic, \hyperpage{33}
 
   \indexspace
 
@@ -46,6 +48,11 @@
 
   \indexspace
 
+  \item operators, \hyperpage{30}
+  \item others, \hyperpage{25}
+
+  \indexspace
+
   \item packages, \hyperpage{21}
   \item pin assignment
     \subitem csv, \hyperpage{9}
@@ -53,13 +60,20 @@
 
   \indexspace
 
-  \item scalar type, \hyperpage{26}
-  \item signal, \hyperpage{25}
+  \item scalar type, \hyperpage{27}
+  \item shared variable, \hyperpage{26}
+  \item signal, \hyperpage{26}
   \item structural modeling, \hyperpage{17}
 
   \indexspace
 
-  \item varaible, \hyperpage{25}
+  \item to, \hyperpage{25}
+  \item type casting, \hyperpage{31}
+  \item type conversion, \hyperpage{31}
+
+  \indexspace
+
+  \item varaible, \hyperpage{26}
 
   \indexspace
 

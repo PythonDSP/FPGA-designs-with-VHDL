@@ -5,24 +5,29 @@ use ieee.std_logic_1164.all;
 
 entity scalarTypeEx is
 	port(
-		a, b : in integer; -- let a=5, b=2
+		clk : in std_logic;
+		a, b : in integer range 1 to 5; 
 		x : inout integer; 
-		w, y, z : out integer; 
 		
 		pA : out integer -- output for process block
 	);
 end scalarTypeEx;
 
 architecture arch of scalarTypeEx is 
+	type voltage_range is range -5 to 5; -- user-defined integer data type
+	signal v1, v2, v3, v4 : voltage_range := 0; -- singal of user-defined integer data type
+	
 	type stateTypes is (posState, negState); -- enumerate data type
 	signal currentState : stateTypes; -- signal of enumerate data type
 begin
 
-	-- integer example
-	w <= a + b; -- 7
-	x <= a - b; -- 3
-	y <= a * b; -- 10
-	z <= a / b; -- 2
+	v1 <= 3;
+--	v2 <= 7;  -- error : outside range
+
+	process(clk)
+	begin 
+		v2 <= v2 + 1;
+	end process;
 	
 	-- enumerate example
 	process(x)
@@ -42,4 +47,5 @@ begin
 			pA <= -1;
 		end if;
 	end process;
+
 end arch;

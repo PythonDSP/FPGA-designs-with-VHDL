@@ -24,12 +24,15 @@ We can not perform various mathematical operations on the data type which are de
 \subsection{`textio' and `std\_logic\_textio' package} 
 These packages are used in testbences to write and read the data to the file. These packages are discussed in Chapter \ref{ch:Testbench}.
 
+\subsection{Other standard packages}
+There are some more standard packages which are not used in this tutorial i.e. `numeric\_bit', `standard',`numeric\_bit\_unsigned' and `numeric\_std\_unsigned'. Further, there are various standard packages are available for `\textbf{fixed point}' and `\textbf{floating point}' operations as well (not discussed in the tutorial) e.g.`fixed\_pkg', `float\_pkg', `fixed\_float\_types', `fixed\_generic\_pkg' and `float\_generic\_pkg'. 
+
 \section{Entity and Architecture}
 Although Entity and Architecture declarations are discussed in Chapter \ref{ch:OverView}; but following are the some additional information about these declarations, 
 
 \subsection{Entity declaration}\index{entity}
 Entity can have three types of ports i.e. `in', `out' and `inout' as shown in lines 3-6 in Listing \ref{vhdl:entityDeclaration}. Note that last declaration does not contain `;' at the end (see line 6). Also, types with different port names, can be defined in separate lines as shown in line 3-4. This is helpful for writing comments for different ports. 
-\begin{lstlisting}[language=Vhdl, caption=Entity Declaration, label= {vhdl:entityDeclaration}]
+\begin{lstlisting}[language=Vhdl, caption={Entity Declaration}, label= {vhdl:entityDeclaration}]
 entity entityEx is      -- entityEx is the name of entity
 port(
 a, b : in std_logic;  -- inputs for encoder
@@ -43,7 +46,7 @@ end entityEx; 			    -- end entity declaration
 \subsection{Architecture body}\index{architecture}
 Architecture declaration consists of name of the architecture and name of the entity as shown in line 1 of Listing \ref{vhdl:architectureBody}. It contains two parts i.e. `declaration section' and `body'. Declaration section is optional which is defined between architecture name and `begin' statement as shown in line 2. In declaration section signals, variables and constants etc. can be defined (line 2), whereas design-logics are defined in body (line 4-7). We already see the use of signals and design-logics in Chapter \ref{ch:OverView}; variables, constants are other data types are discussed in next section.
 
-\begin{lstlisting}[language=Vhdl, caption=Architecture body, label= {vhdl:architectureBody}]
+\begin{lstlisting}[language=Vhdl, caption={Architecture body}, label= {vhdl:architectureBody}]
 architecture arch_Name of entityEx is 
 signal s0, s1: std_logic;  -- declaration section
 begin  -- begin architecture
@@ -54,27 +57,107 @@ z <= s0 or s1;
 end arch_Name;  -- end architecture
 \end{lstlisting}
 
-\section{Data objects}\index{data objects}
+\section{Keyword `others', `downto' and `to'}\label{otherdownto} \index{others}\index{downto}\index{to}
+Keyword `others' is very useful for making assignments. In the tutorial, we used others for assigning the initial values as zero e.g. Listing \ref{vhdl:ifLoop} and Listing \ref{vhdl:rand_num_generator} etc. but it can be used for assigning different values as well as shown in Listing \ref{vhdl:otherto}. Also, we already used `downto' keyword at several places e.g. `std\_logic\_vector(\textbf{7 downto 0})', which indicates that `$7^{th}$ bit is the MSB (preferred style). But, if we want to have the $0^{th}$ bit as MSB, then `to' keyword can be used as `std\_vector(\textbf{0 to 7})'.  Various usage of keywords `others', `downto' and `to' are shown in Listing \ref{vhdl:otherto}. 
+\begin{lstlisting}[language=Vhdl, caption={Keywords `others', `downto' and `to'}, label= {vhdl:otherto}]
+-- assign zero to constant 'a' i.e a = 0000
+constant a : std_logic_vector(3 downto 0) := (others => '0');
+
+-- assign signal 'b' = "0011" 
+-- position 0 or 1 = 1, rest 0
+signal b : std_logic_vector(3 downto 0) := (0|1=>'1', others => '0');  
+
+-- assign signal 'c' = "11110000" 
+-- position 7 downto 4 = 1, rest 0
+signal c : std_logic_vector(7 downto 0) := (7 downto 4 =>'1', others => '0');  
+-- or
+signal c : std_logic_vector(7 downto 0) := (4 to 7 =>'1', others => '0'); 
+
+-- assign signal 'd' = "01000" 
+-- note that d starts from 1 and ends at 5, hence position 2 will be 1.
+signal d : std_logic_vector(1 to 5) := (2=>'1', others => '0');  
+\end{lstlisting}
+
+\section{Data objects}\label{dataOjbects}\index{data objects}
 In this section four types of data-objects are discussed. 
 \begin{enumerate}
 	\item \textbf{Signal}\index{signal}: Signals can be seen as the intermediate connections for different ports. We already saw various signals in Chapter \ref{ch:OverView}, which are used to design the 1-bit and 2-bit comparators e.g. in Listing \ref{vhdl:comparator1Bit}, the signal `s0' and `s1' are used for 1-bit comparator. 
 	
-	\item \textbf{Constant}\index{constant}: Constants are the name provided to a specific data-type as shown in Section \ref{sec:Constants}. As the name suggests, the value of `constant' can not be changed after defining it. 
+	\item \textbf{Variable}\index{varaible}: Variables are defined inside the process statements only and can be accessed within the `process' (i.e. the process in which it is defined). The difference between `variable' and `signal' are shown in Listing \ref{vhdl:signal_variable}. Variables can be very useful in sequntial designs, as these are visible only inside the process. 
 	
-	\item \textbf{Variable}\index{varaible}: Variables are defined in the process statements only and can be accessed within the `process' (i.e. the process in which it is defined).  
+	\begin{explanation}[Listing \ref{vhdl:signal_variable}]
+		Variables can defined declaration part of the process i.e. between `process' and `begin' keywords as shown in Line 25. Also, value to the variable are assigned using `:=' (see Lines 25 and 28). In the listing, two processes are defined (Lines 15 and 23). Following points are important to note in these processes, 
+		\begin{enumerate}
+			\item Process at Line 15 updates the value of signal `a' and then assign the value of `a' to `b'. The updated value of `a' is assigned to `b' in the next clock cycle (not in the same clock cycle) as shown in Fig. \ref{fig:signal_variable}. 
+			\item Process at Line 23 updates the value of `variable v' and then assign the value to signal `c'. This time value will be assigned to signal immediately as shown in Fig. \ref{fig:signal_variable}. \textbf{Note that, the variables are not shown in the simulation graph directly, wee need to add them manually as shown in the figure. Since variable is defined at line 24, therefore line 24 is added to waveform as illustrated in the figure. }
+			\item Further, variables are not visible outside the process i.e. these can be excessed within the process; hence Line 34 will generated error. 
+				\item Lastly, the variable can be shared between between processes by defining them in the `architecture declaration part' using keyword `\textbf{shared variable}'\index{shared variable}. In this case, only one process can modify it and other process can use the variable. 
+		\end{enumerate}		
+	\end{explanation}
 	
-	\item \textbf{File}\index{file}: File types are used to read and write contents to files. `File type' is used with testbenches therefore it is discussed in Chapter \ref{ch:Testbench}
+	\begin{noNumBox}
+		Remember : 	
+		\begin{enumerate}
+			\item  If a \textbf{`signal'} is updated inside the process and then assigned to other signal or ports etc., then \textbf{`old value'} of the signal will be assigned. The updated value will appear in next clock cycle. 
+			\item Whereas, if a `variable' is updated inside the process and then assigned to other signal or ports etc. then `updated value' will be assigned. 
+			\item Further, we will use `variables' only for the `testbenches' (not for the synthesis). 
+			\item Lastly, avoid update and assignment of signals within the same process block. This can be done by defining two different signals for updating and assignments, which is discussed with several examples in Chapter \ref{ch:FSM} and \ref{ch:ExamplesBasicDesigns}. In these chapters, suffix `\_reg' and `\_next' are used for assignment and updating the signal respectively. 
+		\end{enumerate}
+	\end{noNumBox}
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=\textwidth]{signal_variable}
+		\caption{Signal vs Variable}
+		\label{fig:signal_variable}
+	\end{figure}
+	\lstinputlisting[
+	language = Vhdl,
+	caption    = {Signal vs Variable},
+	label      = {vhdl:signal_variable}
+	]{signal_variable.vhd}
+	
+	\item \textbf{Constant}\index{constant}: Constants are the names which are provided to a specific data-type with some values as shown in Section \ref{sec:Constants}. As the name suggests, the value of `constant' can not be changed after defining it. Further, constants can be defined without defining it's value in the packages only, such constants are known as `\textbf{deferred constants}'\index{deferred constants}. But value of the constants must be declared in the package body.  
+	 
+	
+	\item \textbf{File}\index{file}: File types are used to read and write contents to files. `File type' is used with testbenches therefore it is discussed in Chapter \ref{ch:Testbench}.
 \end{enumerate}
 
 \section{Data types}\index{data types}
-In this section, commonly used data-types are discussed. Data types can be categorized in various ways e.g. standard/user-defined data type, scalar/composite and synthesizable/non-synthesizable etc. We categorize the data type in three ways i.e. Standard data types, user-defined scalar data types and user-defined composite data types. Since, we already saw two standard data types i.e. std\_logic and std\_logic\_vector, therefore user-defined data types are discussed first (along with examples) and then a list of standard data types are provided with some details. 
+In this section, commonly used data-types are discussed. Data types can be categorized in various ways e.g. standard/user-defined data type, scalar/composite and synthesizable/non-synthesizable etc. We categorize the data type in three ways i.e. \textbf{Standard data types}, \textbf{user-defined scalar data types} and \textbf{user-defined composite data types}. 
+
+\subsection{Standard data type}
+Some of the widely used standard data types are listed below,  which are defined in two packages i.e. `std\_logic\_1164' and `numeric\_std'.  
+
+\begin{multicols}{4}
+	\begin{enumerate}
+		\item \textbf{std\_logic}
+		\item \textbf{std\_logic\_vector}
+		\item \textbf{unsigned}
+		\item \textbf{signed}
+		\item \textbf{integer}
+		\item \textbf{natural}
+		\item \textbf{time}
+		\item \textbf{string}
+	\end{enumerate}
+\end{multicols}
+
+We will use the above data types for synthesis purpose except `time' and `string' which will be used in testbenches. Also, these data types can be converted from one type to another (except time and string) as shown in Section \ref{sec:typeconversion}. Lastly, Table \ref{tbl:SynthesizeType} shows the list of synthesizable and non-synthesizable data types along with the packages in which those data types are defined.
+
+\begin{table}
+	\centering
+	\includegraphics[width=\textwidth]{SynthesizeType}
+	\caption{Data types}
+	\label{tbl:SynthesizeType}
+\end{table}
+
 
 \subsection{User-defined scalar types}\index{data types!scalar}\index{scalar type}
 In the tutorials, we will use following two user-defined scalar types, 
 \begin{enumerate}
-	\item \textbf{Integer Types}: Integers can be defined using `integer' keyword. Various operations can be performed on integer data types i.e. addition, subtraction, division and multiplication. Further, division will not include the decimal values e.g. $5/2$ will be solved as 2 instead of 2.5, as shown in listing \ref {vhdl:scalarTypeEx}.
+	\item \textbf{Integer Types}: Custom integer ranges can be defined using `range' keywords as shown in Listing \ref {vhdl:scalarTypeEx}..
 	
-	\item \textbf{Enumerated Types}: Enumerated data types have a set of user defined values, as shown in listing \ref {vhdl:scalarTypeEx}. 
+	\item \textbf{Enumerated Types}: Enumerated data types have a set of user defined values, as shown in Listing \ref {vhdl:scalarTypeEx}. 
 	
 \end{enumerate} 
 
@@ -126,54 +209,37 @@ label      = {vhdl:compositeTypeEx}
 	\label{fig:compositeTypeEx}
 \end{figure}
 
-\subsection{Widely used standard data type}
-In this section, some widely used standard data types are discussed which are defined in two packages i.e. `std\_logic\_1164' and `numeric\_std'; whereas next section shows the remaining data types. In the below list, all are synthesizable data types except `time' which is used in testbenches. Also, these data types can be converted from one type to another (except time) as shown in Section \ref{sec:typeconversion}. 
 
-\begin{enumerate}
-	\item \textbf{std\_logic}
-	\item \textbf{std\_logic\_vector}
-	\item \textbf{unsigned}
-	\item \textbf{signed}
-	\item \textbf{integer}
-	\item \textbf{natural}
-	\item \textbf{time}
-\end{enumerate}
 
-\subsection{Other standard data type}
-\begin{enumerate}
-	\item \textbf{std\_ulogic}
-	\item \textbf{std\_ulogic\_vector}
-	\item \textbf{bit}
-	\item \textbf{bit\_vector}
-	\item \textbf{boolean}
-	\item \textbf{boolean\_vector}
-	\item \textbf{positive}
-	\item \textbf{integer\_vector}
-	\item \textbf{character}
-	\item \textbf{string}
-\end{enumerate}
-
-\section{Operators}\label{sec:opearators}
+\section{Operators}\label{sec:opearators}\index{operators}
 In this section, various operators are discussed which are shown in Table \ref{tbl:VHDLoperators}. 
 
-\begin{table}
+\subsection*{Arithmetic operators}
+Table \ref{tbl:VHDLoperators} shows various arithmetic operators.Note that, arithmetic operations may not be performed to all data types, e.g. Mod operation can be applied to `integer' data type and it's subtype (i.e. natural and positive) only. Hence, if we want to use  `mod' operation with `std\_logic\_vector' then we need to perform type-conversion first as shown in Listing \ref{vhdl:modEx}. 
+
+\subsection*{Logical or Boolean operators}
+We already see some logical operators in previous examples e.g. `and' and `or' etc. VHDL provides 7 logical operators i.e. \textbf{and}, \textbf{or}, \textbf{not}, \textbf{nand}, \textbf{nor}, \textbf{xor} and \textbf{xnor}.
+
+\subsection*{Relational operators}
+In previous examples, we used various relational operators to check the conditions i.e. `=' and `$>=$'. VHDL provides 6 relational operations i.e. `=', `$>$', `$<$', `$>=$' (i.e. greater or equal), `$<=$' and `/=' (i.e. not equal to). 
+
+\subsection*{Concatenation operators}\label{concatenationOp}
+Concatenation operator is used to combine the two or more values e.g. [$'1'{ \ }\& { \ }'0' = { \ }''$$10''$] and [$''10''{ \ }\& { \ }'0' = { \ }''$$100''$]. An example of this operator is shown in line 32 of Listing \ref{vhdl:compositeTypeEx}. Also, concatenation operators can be used for shifting operations which is discussed in Section \ref{sec:shiftrg}. 
+
+\subsection*{Assignment operator}
+There are three operators which are used to assign values in VHDL i.e. `$<=$', `$:=$' and `$=>$. The first two operators are discussed in Section \ref{dataOjbects} whereas last operator is discussed in Section \ref{otherdownto}. 
+\begin{table}[!h]
 	\centering
 	\includegraphics[width=\textwidth]{VHDLoperators}
 	\caption{VHDL operators}
 	\label{tbl:VHDLoperators}
 \end{table}
 
-\subsection*{Concatenation operators}
-Concatenation operator is used to combine the two or more values e.g. [$'1'{ \ }\& { \ }'0' = { \ }''$$10''$] and [$''10''{ \ }\& { \ }'0' = { \ }''$$100''$]. Further, it is used at line 32 of Listing \ref{vhdl:compositeTypeEx}. 
+\subsection{Shift operators}
+VHDL provides some shift operators as well e.g. SLL (shift left logic) and SRL (shift right logic) etc. But these operations can be used with `bit\_vector' only, therefore these are not discussed in the tutorial. Further, we can use the concatenation operator for shifting operation as discussed in Section \ref{concatenationOp}. 
 
-\subsection*{Logical operators}
-We already see some logical operators in previous examples e.g. `and' and `or' etc. VHDL provides 7 logical operators i.e. \textbf{and}, \textbf{or}, \textbf{not}, \textbf{nand}, \textbf{nor}, \textbf{xor} and \textbf{xnor}.
-
-\subsection*{Relational operators}
-In previous examples, we used various relational operators to check the conditions i.e. `=' and `$>=$'. VHDL provides 6 relational operations i.e. `=', `$>$', `$<$', `$>=$' (i.e. greater or equal), `$<=$' and `/=' (i.e. not equal to). 
-
-\section{Type conversion}\label{sec:typeconversion}
-VHDL is strongly typed language; in the other words, if we declare the two numbers e.g. `101' and `111' using two different data types e.g. `std\_logic\_vector' and `unsigned', then VHDL considers these numbers as different data types and we can not perform `or' and `xor' etc. operations directly on these two numbers. We need to convert the type of the number, to perform such operations as shown in line 18 of Listing \ref{vhdl:typeConvertEx}. Various conversion functions are shown in Table \ref{tbl:TableTypeConversion}, which is known as `Type Casting'.
+\section{Type conversion}\label{sec:typeconversion}\index{type conversion}
+VHDL is strongly typed language; in the other words, if we declare the two numbers e.g. `101' and `111' using two different data types e.g. `std\_logic\_vector' and `unsigned', then VHDL considers these numbers as different data types and we can not perform `or' and `xor' etc. operations directly on these two numbers. We need to convert the type of the number, to perform such operations as shown in line 18 of Listing \ref{vhdl:typeConvertEx}. Various conversion functions are shown in Table \ref{tbl:TableTypeConversion}, which is known as `\textbf{Type Casting}'\index{type casting}. Further, Listing \ref{vhdl:modEx} performs the type conversion for performing the `mod' operation on `std\_logic\_vector' data type. \textbf{Note that, in Line 26 of Listing \ref{vhdl:modEx}, the `natural data type (i.e. b)' is first converted into `signed' and then to `std\_logic\_vector', as no direct conversion is possible. }
 
 \begin{table}
 	\centering
@@ -188,7 +254,11 @@ caption    = {Type conversion},
 label      = {vhdl:typeConvertEx}
 ]{typeConvertEx.vhd}
 
-
+\lstinputlisting[
+language = Vhdl,
+caption    = {MOD operation with type conversion},
+label      = {vhdl:modEx}
+]{modEx.vhd}
 
 
 \section{Constant and Generics}
@@ -225,6 +295,7 @@ language = Vhdl,
 caption    = {Generic instantiation},
 label      = {vhdl:genericInstantEx}
 ]{genericInstantEx.vhd}
+
 
 \section{Conclusion}
 In this chapter, we saw various data objects, data types and operators. Further, the two libraries i.e. `std\_logic\_1164' and `numeric\_std' are discussed. Generics and constants are shown which can be useful in creating the reusable designs. Lastly, since VHDL is strongly typed language therefore `type casting' is used for performing operations on two different data types. 
