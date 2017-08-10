@@ -1,6 +1,7 @@
 \begin{theindex}
 
   \item architecture, \hyperpage{15}, \hyperpage{25}
+  \item attributes, \hyperpage{34}
 
   \indexspace
 
@@ -8,6 +9,7 @@
 
   \indexspace
 
+  \item combination circuit, \hyperpage{35}
   \item composite type, \hyperpage{29}
   \item constant, \hyperpage{27}
 
@@ -16,7 +18,7 @@
   \item data objects, \hyperpage{26}
   \item data types, \hyperpage{27}
     \subitem composite type, \hyperpage{29}
-    \subitem scalar, \hyperpage{27}
+    \subitem scalar, \hyperpage{28}
   \item dataflow modeling, \hyperpage{15}
   \item deferred constants, \hyperpage{27}
   \item downto, \hyperpage{25}
@@ -27,7 +29,7 @@
 
   \indexspace
 
-  \item file, \hyperpage{27}
+  \item file, \hyperpage{30}
 
   \indexspace
 
@@ -60,7 +62,8 @@
 
   \indexspace
 
-  \item scalar type, \hyperpage{27}
+  \item scalar type, \hyperpage{28}
+  \item sequential circuit, \hyperpage{35}
   \item shared variable, \hyperpage{26}
   \item signal, \hyperpage{26}
   \item structural modeling, \hyperpage{17}

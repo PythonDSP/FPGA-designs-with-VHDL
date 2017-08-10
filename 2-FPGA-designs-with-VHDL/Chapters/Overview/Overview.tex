@@ -59,7 +59,7 @@ Actual behavior of the design is defined in  the `architecture body'. In Listing
 \section{Modeling styles}\index{modeling styles}
 In VHDL, the architecture can be defined in four ways as shown in this section. Two bit comparator is designed with different styles; which generates the output `1' if the numbers are equal, otherwise output is set to `0'.   
 
-\subsection{Dataflow modeling}\index{modeling styles!dataflow}\index{dataflow modeling}
+\subsection{Dataflow modeling}\label{sec:dataflowOverview}\index{modeling styles!dataflow}\index{dataflow modeling}
 In this modeling style, the relation between input and outputs are defined using signal assignments. In the other words, we do not define the structure of the design explicitly; we only define the relationships between the signals; and structure is implicitly created during synthesis process. Listing \ref{vhdl:andEx} is the example of dataflow design, where relationship between inputs and output are given in line 15. 
 
 \begin{table}
@@ -103,7 +103,7 @@ label      = {vhdl:comparator1Bit}
 ]{comparator1Bit.vhd}
 
 \begin{noNumBox}
-	Note that, the statements in `dataflow modeling' and `structural modeling' (described in section \ref{sec:structureModeling}) are the concurrent statements, i.e. these statements execute in parallel. In the other words, order of statements do not affect the behavior of the circuit; e.g. if we exchange line 16 and 19 in Listing \ref{vhdl:comparator1Bit}, again we will get the Fig. \ref{fig:comparator1Bit} as implementation. 
+	Note that, the statements in `dataflow modeling' and `structural modeling' (described in section \ref{sec:structureModeling}) are the concurrent statements, i.e. these statements execute in parallel. In the other words, order of statements do not affect the behavior of the circuit; e.g. if we exchange line 16 and 19 in Listing \ref{vhdl:comparator1Bit}, again we will get the Fig. \ref{fig:comparator1Bit} as implementation. This is discussed in detail in Section \ref{sec:concurrentSeq}. 
 	
 	On the other hand, statements in `behavior modeling' (described in section \ref{sec:behaviourModeling}) executes sequentially and any changes in the order of statements will change the behavior of circuit. 
 \end{noNumBox}
@@ -204,7 +204,7 @@ label      = {vhdl:comparator2BitStructComponent}
 
 
 \subsection{Behavioral modeling}\label{sec:behaviourModeling}\index{modeling styles!behavioral modeling}\index{behavioral modeling}
-In behavioral modeling, the `process' keyword is used and all the statements inside the process statement execute sequentially. Various conditional and loop statements can be used inside the process block as shown in Listing \ref{vhdl:comparator2BitProcess}. Further, process blocks are concurrent blocks, i.e. if an architecture body contains multiple process blocks (see Listing \ref{vhdl:comparator2BitProcess2}), then all the process blocks will execute in parallel. 
+In behavioral modeling, the `process' keyword is used and all the statements inside the process statement execute sequentially, and known as `sequential statements'. Various conditional and loop statements can be used inside the process block as shown in Listing \ref{vhdl:comparator2BitProcess}. Further, process blocks are concurrent blocks, i.e. if an architecture body contains multiple process blocks (see Listing \ref{vhdl:comparator2BitProcess2}), then all the process blocks will execute in parallel. 
 
 \begin{explanation}[Listing \ref{vhdl:comparator2BitProcess}: Behavioral modeling]
 	Entity is declared in line 6-11 which is same as previous codes. In architecture body, the `process' block is declared in line 15, which begins and ends at line 16 and 22 respectively. Therefore all the statements between line 16 to 22 will execute sequentially and Quartus Software will generate the design based on the sequences of the statements.  Any changes in sequences will result in different design.

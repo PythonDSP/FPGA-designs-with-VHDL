@@ -79,7 +79,7 @@ signal d : std_logic_vector(1 to 5) := (2=>'1', others => '0');
 \end{lstlisting}
 
 \section{Data objects}\label{dataOjbects}\index{data objects}
-In this section four types of data-objects are discussed. 
+In this section three types of data-objects are discussed. 
 \begin{enumerate}
 	\item \textbf{Signal}\index{signal}: Signals can be seen as the intermediate connections for different ports. We already saw various signals in Chapter \ref{ch:OverView}, which are used to design the 1-bit and 2-bit comparators e.g. in Listing \ref{vhdl:comparator1Bit}, the signal `s0' and `s1' are used for 1-bit comparator. 
 	
@@ -119,12 +119,10 @@ In this section four types of data-objects are discussed.
 	
 	\item \textbf{Constant}\index{constant}: Constants are the names which are provided to a specific data-type with some values as shown in Section \ref{sec:Constants}. As the name suggests, the value of `constant' can not be changed after defining it. Further, constants can be defined without defining it's value in the packages only, such constants are known as `\textbf{deferred constants}'\index{deferred constants}. But value of the constants must be declared in the package body.  
 	 
-	
-	\item \textbf{File}\index{file}: File types are used to read and write contents to files. `File type' is used with testbenches therefore it is discussed in Chapter \ref{ch:Testbench}.
 \end{enumerate}
 
 \section{Data types}\index{data types}
-In this section, commonly used data-types are discussed. Data types can be categorized in various ways e.g. standard/user-defined data type, scalar/composite and synthesizable/non-synthesizable etc. We categorize the data type in three ways i.e. \textbf{Standard data types}, \textbf{user-defined scalar data types} and \textbf{user-defined composite data types}. 
+In this section, commonly used data-types are discussed. Data types can be categorized in various ways e.g. standard/user-defined data type, scalar/composite and synthesizable/non-synthesizable etc. We categorize the data type in five ways i.e. \textbf{Standard data types}, \textbf{user-defined scalar data types}, \textbf{user-defined composite data types}, \textbf{file type} and \textbf{access type}. Access type are the pointers to the object of other type (similar to C pointer). Since access types are not used in the designs therefore it is not discussed in the tutorial. Note that we can implement all kinds of complex-designs without using access types. 
 
 \subsection{Standard data type}
 Some of the widely used standard data types are listed below,  which are defined in two packages i.e. `std\_logic\_1164' and `numeric\_std'.  
@@ -153,24 +151,22 @@ We will use the above data types for synthesis purpose except `time' and `string
 
 
 \subsection{User-defined scalar types}\index{data types!scalar}\index{scalar type}
-In the tutorials, we will use following two user-defined scalar types, 
+In the tutorials, we will use two user-defined scalar types i.e. \textbf{integer} and \textbf{enumerated}. Since other two scalar types (i.e. \textbf{physical} and \textbf{floating point}) are not synthesizable, therefore not discussed in the tutorial.  
 \begin{enumerate}
-	\item \textbf{Integer Types}: Custom integer ranges can be defined using `range' keywords as shown in Listing \ref {vhdl:scalarTypeEx}..
+	\item \textbf{Integer Types}: Custom integer ranges can be defined using `\textbf{range}' keywords as shown in Listing \ref{vhdl:scalarTypeEx}. Note that, all the mathematical operations can be performed on `custom integer type' but the signals must be of same type e.g. in Listing \ref{vhdl:scalarTypeEx} `a, b, c and v3' have same range, but `v3' has different type, therefore Line 37 will generate error. Please see all the comments in the listing for better understanding of the scaler type. 
 	
-	\item \textbf{Enumerated Types}: Enumerated data types have a set of user defined values, as shown in Listing \ref {vhdl:scalarTypeEx}. 
+	\item \textbf{Enumerated Types}: Enumerated data types have a set of user defined values, as shown in Listing \ref {vhdl:scalarTypeEx}. Enumerated data types are very useful in sequential designs, where we use the finite state machines for implementation, which is discussed in Chapter \ref{ch:FSM}.
 	
 \end{enumerate} 
 
 \begin{explanation}[Listing \ref{vhdl:scalarTypeEx}]
-	This listing contains the example of `integer' and `enumerated' data types. Since `out' port is not readable, therefore in line 9, `x' is define as `inout' port (instead of out), because we are reading the `x' in line 30 i.e `if ($x>=0$)'.
-	\\ \\
-	In the current explanation `a=5' and `b=2' is assumed, as shown as comment in line 8. Lines 22-25 show the results for `integer' data type. The code is simulated using Modelsim and the results are shown in Fig. \ref{fig:scalarTypeEx}.  Note that division operation does not include the decimal value as shown in line 25 and in the figure.
-	\\ \\
-	Enumerated data type is defined in line 17 with name `stateTypes', which has two values i.e. `posState' and `negState'. Further, stateTypes, posState and negState are the user-defined name (not the keywords). Then in line 18, the signal `currentState' of type `stateTypes' is declared. Hence, `currentState' can have only two values i.e. posState and negState. 
+	This listing contains the example of `integer' and `enumerated' data types. Since `out' port is not readable, therefore in line 11, `x' is define as `inout' port (instead of out), because we are reading the `x' in line 48 i.e `if ($x>=0$)'.
+
+	The signals `a', `b' and `c' are of user-defined integer type whose range is [0,5]. Further, two more integer types are defined at Lines 19-20 and 23-24. Note that first we need to define the `type (Lines 19 and 23)' and then create the signal of that type (Lines 20 and 24). 
+
+	Enumerated data type is defined in line 27 with name `stateTypes', which has two values i.e. `posState' and `negState'. Further, stateTypes, posState and negState are the user-defined name (not the keywords). Then in line 28, the signal `currentState' of type `stateTypes' is declared. Hence, `currentState' can have only two values i.e. posState and negState. 
 	
-	Process block at line 28 executes whenever there is any event on `x'. Line 30 checks whether x is greater than or equal to 0 and set the value to `posState, if condition is true; otherwise value is set to `negState'. Process block at line 37 executes whenever there is any event on `currentState' signal. If `currenState' is posState, then pA is set to 1; otherwise it is set to -1. In the current example, `x' is 3, therefore currentState and pA are set to posState and 1 respectively, as shown in Fig. \ref{fig:scalarTypeEx}.
-	
-	
+	Process block at line 46 executes whenever there is any event on `x'. Line 48 checks whether x is greater than or equal to 0 and set the value to `posState, if condition is true; otherwise value is set to `negState'. Please read the comments for more details of the listing.	
 \end{explanation}
 
 \lstinputlisting[
@@ -179,15 +175,9 @@ caption    = {Scalar data types},
 label      = {vhdl:scalarTypeEx}
 ]{scalarTypeEx.vhd}
 
-\begin{figure}[!h]
-	\centering
-	\includegraphics[scale=0.9]{scalarTypeEx}
-	\caption{Scalar datatypes}
-	\label{fig:scalarTypeEx}
-\end{figure}
 
-\subsection{User-defined composite types}\index{data types!composite type}\index{composite type}
-The composite data types are the collection of values. In VHDL, list with same data types is defined using `\textbf{Array}' keyword; whereas list with different data types is defined using `\textbf{Record}'. VHDL examples of array and record are shown in Listing \ref{vhdl:compositeTypeEx}.
+\subsection{User-defined composite types}\label{compsiteTypes}\index{data types!composite type}\index{composite type}
+The composite data types are the collection of values. In VHDL, list with same data types is defined using `\textbf{Array}' keyword; whereas list with different data types is defined using `\textbf{Record}'. VHDL examples of array and record are shown in Listing \ref{vhdl:compositeTypeEx}. Further, random access memory (RAM) is implemented in Section \ref{sec:RAM} using composite type. 
 
 \begin{explanation}[Listing \ref{vhdl:compositeTypeEx}]
 	In line 18, the array `newArray' is defined which can store 2 values (i.e. 0 to 1) of `std\_logic' type. Line 19 creates a signal `arrValue' of newArray type. Then in line 29 and 30, values are assigned to $0^{th}$ and $1^{st}$ position of `arrValue' signal. Finally at line 32, the value is assigned to z using $\&$ operator. $\&$ is known as Concatenation operator, which is discussed in section \ref{sec:opearators}.
@@ -210,23 +200,26 @@ label      = {vhdl:compositeTypeEx}
 \end{figure}
 
 
+\subsection{File Type}\index{file} 
+File types are used to read and write contents to files. `File type' is used with testbenches therefore it is discussed in Chapter \ref{ch:Testbench}.
+
 
 \section{Operators}\label{sec:opearators}\index{operators}
 In this section, various operators are discussed which are shown in Table \ref{tbl:VHDLoperators}. 
 
-\subsection*{Arithmetic operators}
+\subsection{Arithmetic operators}
 Table \ref{tbl:VHDLoperators} shows various arithmetic operators.Note that, arithmetic operations may not be performed to all data types, e.g. Mod operation can be applied to `integer' data type and it's subtype (i.e. natural and positive) only. Hence, if we want to use  `mod' operation with `std\_logic\_vector' then we need to perform type-conversion first as shown in Listing \ref{vhdl:modEx}. 
 
-\subsection*{Logical or Boolean operators}
+\subsection{Logical or Boolean operators}
 We already see some logical operators in previous examples e.g. `and' and `or' etc. VHDL provides 7 logical operators i.e. \textbf{and}, \textbf{or}, \textbf{not}, \textbf{nand}, \textbf{nor}, \textbf{xor} and \textbf{xnor}.
 
-\subsection*{Relational operators}
+\subsection{Relational operators}
 In previous examples, we used various relational operators to check the conditions i.e. `=' and `$>=$'. VHDL provides 6 relational operations i.e. `=', `$>$', `$<$', `$>=$' (i.e. greater or equal), `$<=$' and `/=' (i.e. not equal to). 
 
-\subsection*{Concatenation operators}\label{concatenationOp}
+\subsection{Concatenation operators}\label{concatenationOp}
 Concatenation operator is used to combine the two or more values e.g. [$'1'{ \ }\& { \ }'0' = { \ }''$$10''$] and [$''10''{ \ }\& { \ }'0' = { \ }''$$100''$]. An example of this operator is shown in line 32 of Listing \ref{vhdl:compositeTypeEx}. Also, concatenation operators can be used for shifting operations which is discussed in Section \ref{sec:shiftrg}. 
 
-\subsection*{Assignment operator}
+\subsection{Assignment operator}
 There are three operators which are used to assign values in VHDL i.e. `$<=$', `$:=$' and `$=>$. The first two operators are discussed in Section \ref{dataOjbects} whereas last operator is discussed in Section \ref{otherdownto}. 
 \begin{table}[!h]
 	\centering
@@ -296,6 +289,17 @@ caption    = {Generic instantiation},
 label      = {vhdl:genericInstantEx}
 ]{genericInstantEx.vhd}
 
+\section{Attributes} \index{attributes}
+Attributes are the additional information about the signals, variables and types etc. In the tutorial three attributes are used frequently in the tutorial i.e. `event (see Listing \ref{vhdl:BasicDFF})', `image (see Listing \ref{vhdl:half_adder_lookup_tb.vhd})' and `range (see Listing \ref{vhdl:half_adder_lookup_tb.vhd}). 
+
+\begin{enumerate}
+	\item Attribute `event' is set to `1' whenever there is any change in the signal e.g. ``clk'event'' will be 1 when clock goes from `0' to `1' or vice-versa.
+	\item Attribute `image' is used for string representation of integers, natural and std\_logic\_vector etc., which is very useful in testbenches for printing the values in string format.
+	\item Attribute `range' can be used for iterating over all the test-data using for-loop in the testbenches.
+	\item Lastly, there are several other predefined attributes available in VHDL e.g. `low', `high', `active', `length' and `reverse\_range' etc. Further, we can create custom attribute as well.
+\end{enumerate}
+
+ 
 
 \section{Conclusion}
 In this chapter, we saw various data objects, data types and operators. Further, the two libraries i.e. `std\_logic\_1164' and `numeric\_std' are discussed. Generics and constants are shown which can be useful in creating the reusable designs. Lastly, since VHDL is strongly typed language therefore `type casting' is used for performing operations on two different data types. 
