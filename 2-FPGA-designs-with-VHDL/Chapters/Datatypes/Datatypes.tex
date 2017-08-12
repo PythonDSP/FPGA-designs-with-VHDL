@@ -204,6 +204,14 @@ label      = {vhdl:compositeTypeEx}
 File types are used to read and write contents to files. `File type' is used with testbenches therefore it is discussed in Chapter \ref{ch:Testbench}.
 
 
+\section{Tristate buffer}
+The input/output (IO) ports can be left open using `Z' value of `std\_logic', which is synthesize using `tristate buffer'. Suppose, we want to read the IO port `a' only when `enable' is `1' then we can write the code as below, 
+
+\begin{lstlisting}[language=Vhdl, caption={Architecture body}, label= {vhdl:architectureBody}]
+r <= a when enable='1' else 'Z'; 
+\end{lstlisting}
+
+
 \section{Operators}\label{sec:opearators}\index{operators}
 In this section, various operators are discussed which are shown in Table \ref{tbl:VHDLoperators}. 
 

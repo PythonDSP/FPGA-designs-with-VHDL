@@ -27,7 +27,7 @@ begin
 			count_reg <= (others=>'0');
 		elsif	clk'event and clk='1' then
 			count_reg <= count_next;
-		else
+		else  -- note that else block is not required
 			count_reg <= count_reg;
 		end if;
 	end process;

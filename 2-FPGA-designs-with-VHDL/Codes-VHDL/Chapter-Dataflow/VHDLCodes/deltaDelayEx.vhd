@@ -10,10 +10,10 @@ entity deltaDelayEx is
 end deltaDelayEx;
 
 architecture dataflow of deltaDelayEx is
-signal s, w: std_logic;
+signal s : std_logic;
 begin
 	z <= s;
 	s <= x after 0 ns;
---	z <= x and w; -- error: multiple signal assignment not allowed
+--	z <= x and s; -- error: multiple signal assignment not allowed
 end dataflow;
 		

@@ -1,0 +1,36 @@
+% seven_seg_data.mif %
+% ROM data for seven segment display %
+ 
+% data width and total data %
+width=7;  % number of bits in each data %
+depth=16; % total number of data (i.e. total address) %
+
+% 
+    format of data and address stored in this file
+    uns : unsigned,  dec : decimal,  hex : hexadecimal
+    bin : binary,  oct : octal
+%
+address_radix=uns;  % address is unsigned-type %
+data_radix=bin;     % data is binary-type %
+ 
+% ROM data %
+content begin
+    [0..15] : 0000000;      % optional : assign 0 to all address %
+    0 : 1000000;            % format => signed : binary %
+    1 : 1111001;
+    2 : 0100100;
+    3 : 0110000;
+    4 : 0011001;
+    5 : 0010010;
+    6 : 0000010;
+    7 : 1111000;
+    8 : 0000000;  
+    9 : 0010000;
+    10 : 0001000;
+    11 : 0000011;
+    12 : 1000110;
+    13 : 0100001;
+    14 : 0000110;
+    15 : 0001110;
+
+end;

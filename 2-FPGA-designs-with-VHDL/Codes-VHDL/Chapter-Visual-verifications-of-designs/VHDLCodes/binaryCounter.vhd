@@ -26,7 +26,7 @@ begin
 			count_reg <= (others=>'0');  -- set count to 0 if reset
 		elsif	clk'event and clk='1' then
 			count_reg <= count_next;  -- assign next value of count
-		else
+		else  -- note that else block is not required
 			null;
 		end if;
 	end process;

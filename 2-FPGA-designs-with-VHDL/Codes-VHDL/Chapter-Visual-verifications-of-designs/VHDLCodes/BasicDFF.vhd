@@ -19,7 +19,7 @@ begin
 			q <= '0';
 		elsif (clk'event and clk = '1') then -- check for rising edge of clock
 			q <= d;
-		else
+		else  -- note that, else block is not required here
 			null;  -- do nothing
 		end if;
 	end process;
