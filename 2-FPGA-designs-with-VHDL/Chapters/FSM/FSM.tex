@@ -154,16 +154,43 @@ label      = {vhdl:manchester_code2}
 ]{manchester_code2.vhd}
 
 \subsection{Combinational design in synchronous circuit}\label{sec:glitchInsSync}
+Combination designs in sequential circuits were discussed in Fig. \ref{fig:combSeqBlock}. The output of these combination designs can depend on states only, or on the states along with external inputs. The former is known as Moore design and latter is known as Mealy design as discussed in Section \ref{sec:MealyMooreDesign}. Since, the sequential designs are sensitive to edge of the clock, therefore the glitches can occur only at the edge of the clock. Hence, the glitches at the edge can be removed by sending the output signal through the D flip flop, as shown in Fig. \ref{fig:combSeqBlockGlitchFree}. Various VHDL templates for sequential designs are shown in Section \ref{sec:MooreTemplates} and \ref{sec:MealyTemplates}. 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale = 0.8]{combSeqBlockGlitchFree}
+	\caption{Glitch-free sequential design using D flip flop}
+	\label{fig:combSeqBlockGlitchFree}
+\end{figure}
 
 
-
-\section{Moore architecture and VHDL templates}
+\section{Moore architecture and VHDL templates} \label{sec:MooreTemplates}
 \subsection{Regular machine}
+\lstinputlisting[
+language = Vhdl,
+caption    = {VHDL template for regular Moore FSM : separate `next\_state' and `output' logic},
+label      = {vhdl:moore_regular_template}
+]{moore_regular_template.vhd}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {VHDL template for regular Moore FSM : combined `next\_state' and `output' logic},
+label      = {vhdl:moore_regular_template2}
+]{moore_regular_template2.vhd}
+
 \subsection{Timed machine}
 \subsection{Recursive machine}
 
-\section{Mealy architecture and VHDL templates}
+\section{Mealy architecture and VHDL templates} \label{sec:MealyTemplates}
 \subsection{Regular machine}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {VHDL template for regular Mealy FSM : combined `next\_state' and `output' logic},
+label      = {vhdl:mealy_regular_template}
+]{mealy_regular_template.vhd}
+
+
 \subsection{Timed machine}
 \subsection{Recursive machine}
 
