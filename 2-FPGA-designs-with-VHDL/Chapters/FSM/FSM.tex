@@ -93,7 +93,69 @@ label      = {vhdl:edgeDetector_VisualTest}
 ]{edgeDetector_VisualTest.vhd}
 
 \section{Synchronous and asynchronous reset}
+
 \section{Glitches}
+Glitches are the short duration pulses which are generated in the combinational circuits. These are generated when more than two inputs change their values simultaneously. Glitches can be categorized as `static glitches' and `dynamic glitches'. Static glitches are further divided into two groups i.e. `static-0' and `static-1'. `Static-0' glitch is the glitch which occurs in logic `0' signal i.e. \textbf{one short pulse} `high-pulse (logic-1)' appears in logic-0 signal (and the signal settles down). Dynamic glitch is the glitch in which \textbf{multiple short pulses} appear before the signal settles down. 
+
+\begin{noNumBox}
+ Most of the times, the glitches are not the problem in the design. Glitches create problem when it occur in the outputs, which are used as clock for the other circuits. In this case, glitches will trigger the next circuits, which will result in incorrect outputs. In such cases, it is very important to remove these glitches. In this section, the glitches are shown for three cases. Since, clocks are used in synchronous designs, therefore Section \ref{sec:glitchInsSync} is of our main interest.
+ \end{noNumBox} 
+  
+\subsection{Combinational design in asynchronous circuit}
+Table \ref{tbl:glitch_table} shows the truth-table for $2 \times 1$ multiplexer and corresponding Karnaugh map is shown in Fig. \ref{fig:glitch_sol}. Note that, the glitches occurs in the circuit, when we exclude the `red part' of the solution from the Fig. \ref{fig:glitch_sol}, which results in minimum-gate solution, but at the same time the solution is disjoint. To remove the glitch, we can add the prime-implicant in red-part as well. This solution is good, if there are few such gates are required; however if the number of inputs are very high, whose values are changing simultaneously then this solution is not practical, as we need to add large number of gates.
+
+\begin{table}[!h]
+	\centering
+	\includegraphics[scale = 1]{glitch_table}
+	\caption{Truth table of $2 \times 1$ Multiplexer}
+	\label{tbl:glitch_table}
+\end{table}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale = 1]{glitch_sol}
+	\caption{Reason for glitches and solution}
+	\label{fig:glitch_sol}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{glitches}
+	\caption{Glitches in design in Listing \ref{vhdl:glitchEx}}
+	\label{fig:glitches}
+\end{figure}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Glitches in multiplexer},
+label      = {vhdl:glitchEx}
+]{glitchEx.vhd}
+
+\subsection{Unfixable Glitch}
+Listing \ref{vhdl:manchester_code} is another example of glitches in the design as shown in Fig. \ref{fig:manchesterGlitch}. Here, glitches are continuous i.e. these are occurring at every change in signal `din'. Such glitches are removed by using D-flip-flop as shown in Section \ref{sec:glitchInsSync}. \textbf{Since the output of Manchester code depends on both edges of clock (i.e. half of the output changes on $+ve$ edge and other half changes at $-ve$ edge), therefore such glitches are unfixable; as in VHDL both edges can not be connected to one D flip flop. However, the simulation can be performed with both edges connected to D flip flop as shown in Listing \ref{vhdl:manchester_code2}; where glitches are removed using D flip flop.}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{manchesterGlitch}
+	\caption{Glitches in Listing \ref{vhdl:manchester_code}}
+	\label{fig:manchesterGlitch}
+\end{figure}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Glitches in Manchester coding},
+label      = {vhdl:manchester_code}
+]{manchester_code.vhd}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Non-synthesizable solution for removing glitches},
+label      = {vhdl:manchester_code2}
+]{manchester_code2.vhd}
+
+\subsection{Combinational design in synchronous circuit}\label{sec:glitchInsSync}
+
+
 
 \section{Moore architecture and VHDL templates}
 \subsection{Regular machine}
