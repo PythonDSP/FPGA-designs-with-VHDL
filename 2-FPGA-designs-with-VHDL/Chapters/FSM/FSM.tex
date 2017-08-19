@@ -179,11 +179,33 @@ label      = {vhdl:moore_regular_template2}
 ]{moore_regular_template2.vhd}
 
 \subsection{Timed machine}
+If the state of the design changes after certain duration, then we need to add the timer in the VHDL design defined in Listing \ref{vhdl:moore_regular_template} and \ref{vhdl:moore_regular_template}. For this, we need to add one more process-block which performs following actions, 
+\begin{itemize}
+	\item \textbf{Zero the timer : } The value of the timer is set to zero, whenever the state of the system changes. 
+	\item \textbf{Stop the timer : } Value of the timer is incremented till the predefined `maximum value' is reached and then it should be stopped incrementing. Further, it's value should \textbf{not} be set to zero until state is changed. 
+\end{itemize}
+
+Template for timed Moore machine is shown in Listing \ref{vhdl:moore_timed_template}, which is exactly same as Listing \ref{vhdl:moore_regular_template2} except with following changes, 
+\begin{enumerate}
+	\item Timer related constants are added at Line 23-29.
+	\item A process block is added to stop and zero the timer (Lines 44-56). 
+	\item Finally, timer related conditions are included for next-state logic e.g.  Lines 67 and 69 etc.
+	
+\end{enumerate}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {VHDL template timed Moore FSM : separate `next\_state' and `output' logic},
+label      = {vhdl:moore_timed_template}
+]{moore_timed_template.vhd}
+
+
+
 \subsection{Recursive machine}
 
 \section{Mealy architecture and VHDL templates} \label{sec:MealyTemplates}
 \subsection{Regular machine}
-
+In Mealy machines, the output is the function of current input and states, therefore the output will also defined inside the if-statements (Lines 50-51 etc.). Rest of the code is same as Listing \ref{vhdl:moore_regular_template2}. 
 \lstinputlisting[
 language = Vhdl,
 caption    = {VHDL template for regular Mealy FSM : combined `next\_state' and `output' logic},
@@ -192,6 +214,15 @@ label      = {vhdl:mealy_regular_template}
 
 
 \subsection{Timed machine}
+Listing \ref{vhdl:mealy_timed_template} contains timer related changes in Listing \ref{vhdl:mealy_regular_template}. See description of Listing \ref{vhdl:moore_timed_template} for more details. 
+\lstinputlisting[
+language = Vhdl,
+caption    = {VHDL template for timed Mealy FSM : combined `next\_state' and `output' logic},
+label      = {vhdl:mealy_timed_template}
+]{mealy_timed_template.vhd}
+
+
+
 \subsection{Recursive machine}
 
 
