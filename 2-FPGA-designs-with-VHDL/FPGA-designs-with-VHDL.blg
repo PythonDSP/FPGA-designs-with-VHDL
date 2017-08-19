@@ -1,0 +1,28 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: FPGA-designs-with-VHDL.aux
+A level-1 auxiliary file: Chapters/FirstProject/FirstProject.aux
+A level-1 auxiliary file: Chapters/Overview/Overview.aux
+A level-1 auxiliary file: Chapters/Datatypes/Datatypes.aux
+A level-1 auxiliary file: Chapters/Dataflow/Dataflow.aux
+A level-1 auxiliary file: Chapters/BehavioralModeling/BehavioralModeling.aux
+A level-1 auxiliary file: Chapters/Package/Package.aux
+A level-1 auxiliary file: Chapters/VerilogWithVhdl/VerilogWithVhdl.aux
+A level-1 auxiliary file: Chapters/VVD/VVD.aux
+A level-1 auxiliary file: Chapters/FSM/FSM.aux
+A level-1 auxiliary file: Chapters/Testbench/Testbench.aux
+A level-1 auxiliary file: Chapters/DesignExamples/DesignExamples.aux
+A level-1 auxiliary file: Chapters/NiosOverview/NiosOverview.aux
+A level-1 auxiliary file: Chapters/NiosReadSwitch/NiosReadSwitch.aux
+A level-1 auxiliary file: Chapters/UartSdramPython/UartSdramPython.aux
+A level-1 auxiliary file: Chapters/NiosCustomIO/NiosCustomIO.aux
+A level-1 auxiliary file: BackMatters/References/References.aux
+The style file: IEEETran.bst
+A level-1 auxiliary file: BackMatters/Appendix/Appendix.aux
+Database file #1: BackMatters/References/references.bib
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--missing publisher in pythondsp
+Warning--empty year in pythondsp
+
+Done.
+(There were 2 warnings)

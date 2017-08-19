@@ -73,9 +73,21 @@ If `no delay' or delay of `0 ns' is specified in the statement, then delta delay
 	In the other words, the code will execute `two times' in $2\Delta t$ time to complete the signal assignments; in first $\Delta t$ time, value of `s' will change and in next $\Delta t$ time, the value of `s' will be assigned to `z'. In general, code will execute until there is no further change in the signals. Also, delta delay is very small and can not be seen in simulation results as illustrated in Fig. \ref  {fig:deltaDelayEx}.	Further, in the figure, all the values i.e. `x', `s' and `z' are changed at the same time, which indicates that delta delay is very small and can not be observed. 
 	
 	\begin{noNumBox}
-		Note that	multiple signal assignments are not allowed in VHDL, as shown in line 17 of Listing \ref{vhdl:deltaDelayEx}. Here, signal assignment for `z' is done twice i.e. line 15 and 17. If we uncomment the line 17, then model will be invalid and error will be generated. 
+		Note following points here, 
+		\begin{enumerate}
+			\item Multiple signal assignments are not allowed in VHDL, as shown in line 17 of Listing \ref{vhdl:deltaDelayEx}. Here, signal assignment for `z' is done twice i.e. line 15 and 17. If we uncomment the line 17, then model will be invalid and error will be generated. 
+			\item The `after' statements in the VHDL codes are discarded by the synthesizer. But `after' keyword is very useful for writing testbenches.
+			\item A buffer is added to the system for `inout port' as shown in Fig. \ref{fig:bufferInOut}. 
+		\end{enumerate}	
 	\end{noNumBox}
 \end{explanation}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.7]{bufferInOut}
+	\caption{Buffer created for `inout port (x)'}
+	\label{fig:bufferInOut}
+\end{figure}
 
 \lstinputlisting[
 language = Vhdl,
