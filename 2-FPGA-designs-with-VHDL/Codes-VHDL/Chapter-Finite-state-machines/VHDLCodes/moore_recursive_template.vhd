@@ -1,10 +1,10 @@
--- moore_timed_template.vhd
+-- moore_recursive_template.vhd
 
 library ieee; 
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity moore_timed_template is 
+entity moore_recursive_template is 
 generic (
 	param1 : std_logic_vector(...) := <value>;
 	param1 : unsigned(...) := <value>
@@ -16,17 +16,22 @@ port (
 );
 end entity; 
 
-architecture arch of moore_timed_template is 
+architecture arch of moore_recursive_template is 
 	type stateType is (s0, s1, s2, s3, ...);
 	signal state_reg, state_next : stateType; 
 	
-	-- timer
+	-- timer (optional)
 	constant T1 : natural := <value>;
 	constant T2 : natural := <value>;
 	constant T3 : natural := <value>;
 	...
 	constant tmax : natural := <value>; -- tmax >= max(T1, T2, ...)-1
 	signal t : natural range 0 to tmax; 
+	
+	-- recursive : feedback register
+	signal r1_reg, r1_next : std_logic_vector(...) := <value>;
+	signal r2_reg, r2_next : signed(...) := <value>;
+	...
 begin 
 	-- state register : state_reg
 	-- This process contains sequential part and all the D-FF are 
@@ -41,7 +46,7 @@ begin
 		end if;
 	end process; 
 	
-	-- timer 
+	-- timer (optional)
 	process(clk, reset)
 	begin 
 		if reset = '1' then
@@ -55,6 +60,20 @@ begin
 		end if; 
 	end process; 
 	
+	-- feedback registers: to feedback the outputs
+	process(clk, reset)
+	begin
+		if (reset = '1') then
+			r1_reg <= <initial_value>;
+			r2_reg <= <initial_value>;
+			...
+		elsif rising_edge(clk) then
+			r1_reg <= r1_next;
+			r2_reg <= r2_next;
+			...
+		end if;
+	end process; 
+	
 	-- next state logic : state_next
 	-- This is cominatinal part of the sequential design, 
 	-- which contains the logic for next-state
@@ -62,24 +81,26 @@ begin
 	process(input1, input2, state_reg) 
 	begin 
 		state_next <= state_reg; -- default state_next
+		r1_next <= r1_reg; -- default next-states
+		r2_next <= r2_reg;
+		...
 		case state_reg is
 			when s0 =>
-				if <condition> and t >= T1-1 then -- if (input1 = '01') then
+				if <condition> and r1_reg = <value> and t >= T1-1 then -- if (input1 = '01') then
 					state_next <= s1; 
-				elsif <condition> and t >= T2-1 then  -- add all the required conditionstion
-					state_next <= ...; 
+					r1_next <= <value>;
+					r2_next <= <value>;
+					...
+				elsif <condition> and r2_reg = <value> and t >= T2-1 then  -- add all the required conditions
+					state_next <= <value>; 
+					r1_next <= <value>;
+					...
 				else -- remain in current state
 					state_next <= s0; 
+					r2_next <= <value>;
+					...
 				end if;
 			when s1 => 
-				if <condition> and t >= T3-1 then -- if (input1 = '10') then
-					state_next <= s2; 
-				elsif <condition> and t >= T2-1 then  -- add all the required conditionstions
-					state_next <= ...; 
-				else -- remain in current state
-					state_next <= s1; 
-				end if;
-			when s2 =>
 				...
 		end case;
 	end process; 

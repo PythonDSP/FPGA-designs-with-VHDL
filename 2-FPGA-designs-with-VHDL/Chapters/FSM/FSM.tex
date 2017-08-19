@@ -165,12 +165,30 @@ Combination designs in sequential circuits were discussed in Fig. \ref{fig:combS
 
 
 \section{Moore architecture and VHDL templates} \label{sec:MooreTemplates}
+Fig. \ref{fig:combSeqBlockGlitchFree} shows the different block for the sequential design. In this figure, we have three blocks i.e. `sequential logic', `combinational logic' and `glitch removal block'. In this section, we will define three process-statements to implemented these blocks (see Listing \ref{vhdl:moore_regular_template2}). Further, `combinational logic block' contains two different logics i.e. `next-state' and `output'. Therefore, this block can be implemented using two different block, which will result in four process-statements (see Listing \ref{vhdl:moore_regular_template}). 
+
 \subsection{Regular machine}
+Please note the following points for regular Moore machine, 
+\begin{enumerate}
+	\item Output depends only on the states, therefore \textbf{no `if statement'} is required in the process-statement. For example, in Lines 76-78 of Listing \ref{vhdl:moore_regular_template}, the outputs (Lines 77-78) are defined inside the `when' statement which contains only state i.e. `s0' (Line 76). 
+	\item Next-state depends on current-state and and  \textbf{current external inputs}. For example, the `state\_next' at Line 46 of Listing \ref{vhdl:moore_regular_template} is defined inside `if statement' (Line 45) which depends on current input. Further, this `if statement' is defined inside the state `s0' (Line 44). Hence the next state depends on current state and current external input.    
+\end{enumerate}
+
+\begin{noNumBox}
+	In regular Moore machine, 
+	\begin{enumerate}
+		\item Outputs depend on current external inputs. 
+		\item Next states depend on current states and current external inputs.
+	\end{enumerate}
+\end{noNumBox}
+
 \lstinputlisting[
 language = Vhdl,
 caption    = {VHDL template for regular Moore FSM : separate `next\_state' and `output' logic},
 label      = {vhdl:moore_regular_template}
 ]{moore_regular_template.vhd}
+
+Listing \ref{vhdl:moore_regular_template2} is same as Listing \ref{vhdl:moore_regular_template}, but the ouput-logic and next-state logic are combined in one process block. 
 
 \lstinputlisting[
 language = Vhdl,
@@ -185,12 +203,18 @@ If the state of the design changes after certain duration, then we need to add t
 	\item \textbf{Stop the timer : } Value of the timer is incremented till the predefined `maximum value' is reached and then it should be stopped incrementing. Further, it's value should \textbf{not} be set to zero until state is changed. 
 \end{itemize}
 
+\begin{noNumBox}
+	In timed Moore machine, 
+	\begin{enumerate}
+		\item Outputs depend on current external inputs. 
+		\item Next states depend on time along with current states and current external inputs.
+	\end{enumerate}
+\end{noNumBox}
 Template for timed Moore machine is shown in Listing \ref{vhdl:moore_timed_template}, which is exactly same as Listing \ref{vhdl:moore_regular_template2} except with following changes, 
 \begin{enumerate}
 	\item Timer related constants are added at Line 23-29.
 	\item A process block is added to stop and zero the timer (Lines 44-56). 
 	\item Finally, timer related conditions are included for next-state logic e.g.  Lines 67 and 69 etc.
-	
 \end{enumerate}
 
 \lstinputlisting[
@@ -202,8 +226,26 @@ label      = {vhdl:moore_timed_template}
 
 
 \subsection{Recursive machine}
+In recursive machine, the outputs are fed back as input to the system. Hence, we need additional process-statement which can store the outputs which are fed back to combinational block of sequential design, as shown in Listing \ref{vhdl:moore_recursive_template}. The listing is same as Listing \ref{vhdl:moore_timed_template} except certain signals and process block are defined to feedback the output to combination logic; i.e. Lines 31-33 contain the signals (feedback registers) which are required to be feedback the outputs. Here, `\_next' and `\_reg' are used in these lines, where `next' value is fed back as `reg' in the next clock cycle inside the process statement which is defined in Lines 64-75. Lastly, `feedback registers' are also used to calculate the next-state inside the `if statement' e.g. Lines 89 and 94. Also, the value of feedback registers are updated inside these `if statements' e.g. Lines 96 and 100. 
+
+\begin{noNumBox}
+	In recursive Moore machine, 
+	\begin{enumerate}
+		\item Outputs depend on current external inputs. Also, values in the feedback registers are used as outputs.
+		\item Next states depend current states, current external input, current internal inputs (i.e. previous outputs feedback as inputs to system) and time (optional).
+	\end{enumerate}
+\end{noNumBox}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {VHDL template recursive Moore FSM : separate `next\_state' and `output' logic},
+label      = {vhdl:moore_recursive_template}
+]{moore_recursive_template.vhd}
+
+
 
 \section{Mealy architecture and VHDL templates} \label{sec:MealyTemplates}
+Template for Mealy architecture is similar to Moore architecture. The minor changes are required as outputs depend on current input as well, as discussed in this section. 
 \subsection{Regular machine}
 In Mealy machines, the output is the function of current input and states, therefore the output will also defined inside the if-statements (Lines 50-51 etc.). Rest of the code is same as Listing \ref{vhdl:moore_regular_template2}. 
 \lstinputlisting[
@@ -225,6 +267,13 @@ label      = {vhdl:mealy_timed_template}
 
 \subsection{Recursive machine}
 
+Listing \ref{vhdl:mealy_recursive_template} contains recursive-design related changes in Listing \ref{vhdl:mealy_timed_template}. See description of Listing \ref{vhdl:moore_recursive_template} for more details. 
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {VHDL template for recursive Mealy FSM : combined `next\_state' and `output' logic},
+label      = {vhdl:mealy_recursive_template}
+]{mealy_recursive_template.vhd}
 
 \section{When to use FSM design}
 We saw in previous sections that, once we have the state diagram for the FSM design, then the VHDL design is a straightforward process. But, it is important to understand the correct conditions for using the FSM, otherwise the circuit will become complicated unnecessary. 

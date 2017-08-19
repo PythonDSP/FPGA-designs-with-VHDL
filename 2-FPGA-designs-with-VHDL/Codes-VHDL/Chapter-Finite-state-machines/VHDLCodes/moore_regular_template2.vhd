@@ -51,7 +51,7 @@ begin
 				...
 				if <condition> then -- if (input1 = '01') then
 					state_next <= s1; 
-				elsif <condition> then  -- add all the required coditions
+				elsif <condition> then  -- add all the required conditionstions
 					state_next <= ...; 
 				else -- remain in current state
 					state_next <= s0; 
@@ -62,7 +62,7 @@ begin
 				...
 				if <condition> then -- if (input1 = '10') then
 					state_next <= s2; 
-				elsif <condition> then  -- add all the required coditions
+				elsif <condition> then  -- add all the required conditionstions
 					state_next <= ...; 
 				else -- remain in current state
 					state_next <= s1; 

@@ -73,7 +73,7 @@ begin
 					output2 <= <value>;
 					...
 					state_next <= s1; 
-				elsif <condition> and t >= T2-1 then  -- add all the required coditions
+				elsif <condition> and t >= T2-1 then  -- add all the required conditionstions
 					output1 <= <value>;
 					output2 <= <value>;
 					...
