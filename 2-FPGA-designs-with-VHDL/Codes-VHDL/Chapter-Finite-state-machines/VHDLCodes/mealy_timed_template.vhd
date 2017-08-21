@@ -25,8 +25,7 @@ architecture arch of mealy_timed_template is
 	constant T2 : natural := <value>;
 	constant T3 : natural := <value>;
 	...
-	constant tmax : natural := <value>; -- tmax >= max(T1, T2, ...)-1
-	signal t : natural range 0 to tmax;
+	signal t : natural;
 begin 
 	-- state register : state_reg
 	-- This process contains sequential part and all the D-FF are 
@@ -49,7 +48,7 @@ begin
 		elsif rising_edge(clk) then
 			if state_reg /= state_next then  -- state is changing
 				t <= 0;
-			elsif t /= tmax then
+			else
 				t <= t + 1; 
 			end if; 
 		end if; 
