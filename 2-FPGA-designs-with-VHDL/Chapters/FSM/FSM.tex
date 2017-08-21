@@ -93,7 +93,7 @@ caption    = {Visual verification of edge detector},
 label      = {vhdl:edgeDetector_VisualTest}
 ]{edgeDetector_VisualTest.vhd}
 
-\section{Synchronous and asynchronous reset}
+%\section{Synchronous and asynchronous reset}
 
 \section{Glitches} \label{sec:glitches}
 Glitches are the short duration pulses which are generated in the combinational circuits. These are generated when more than two inputs change their values simultaneously. Glitches can be categorized as `static glitches' and `dynamic glitches'. Static glitches are further divided into two groups i.e. `static-0' and `static-1'. `Static-0' glitch is the glitch which occurs in logic `0' signal i.e. \textbf{one short pulse} `high-pulse (logic-1)' appears in logic-0 signal (and the signal settles down). Dynamic glitch is the glitch in which \textbf{multiple short pulses} appear before the signal settles down. 
@@ -166,10 +166,38 @@ Combination designs in sequential circuits were discussed in Fig. \ref{fig:combS
 
 
 \section{Moore architecture and VHDL templates} \label{sec:MooreTemplates}
-Fig. \ref{fig:combSeqBlockGlitchFree} shows the different block for the sequential design. In this figure, we have three blocks i.e. `sequential logic', `combinational logic' and `glitch removal block'. In this section, we will define three process-statements to implemented these blocks (see Listing \ref{vhdl:moore_regular_template2}). Further, `combinational logic block' contains two different logics i.e. `next-state' and `output'. Therefore, this block can be implemented using two different block, which will result in four process-statements (see Listing \ref{vhdl:moore_regular_template}). Further, the example of the templates discussed in this section are shown in Section \ref{sec:VHDLtemplateExample}.
+Fig. \ref{fig:combSeqBlockGlitchFree} shows the different block for the sequential design. In this figure, we have three blocks i.e. `sequential logic', `combinational logic' and `glitch removal block'. In this section, we will define three process-statements to implemented these blocks (see Listing \ref{vhdl:moore_regular_template2}). Further, `combinational logic block' contains two different logics i.e. `next-state' and `output'. Therefore, this block can be implemented using two different block, which will result in four process-statements (see Listing \ref{vhdl:moore_regular_template}). 
+
+Moore and Mealy machines can be divided into three categories i.e. `regular', 'timed' and `recursive'. The differences in these categories are shown in Fig. \ref{fig:typeMooreMachine} for Moore machine. In this section, we will see different VHDL templates for these categories. Note that, the design may be the combinations of these three categories, and we need to select the correct template according to the need. Further, the examples of these templates are shown in Section \ref{sec:VHDLtemplateExample}.
+
+
+\begin{figure*}[!h]
+	\begin{subfigure}[t]{1\textwidth}
+		\centering
+		\includegraphics[width=0.5\columnwidth]{regular}
+		\caption{Regular Moore machine}
+		\label{subfig:regular}
+	\end{subfigure} %  
+	\begin{subfigure}[t]{1\textwidth}
+		\centering
+		\includegraphics[width=0.5\columnwidth]{timed}
+		\caption{Timed Moore machine : next state depends on time as well}
+		\label{subfig:timed}
+	\end{subfigure}	
+		
+	\begin{subfigure}[t]{1\textwidth}
+		\centering
+		\includegraphics[width=0.5\columnwidth]{recursive}
+		\caption{Recursive Moore machine : output `z' depends on output i.e. feedback required}
+		\label{subfig:recursive}
+	\end{subfigure}	
+	\caption{Different types of FSM}
+	\label{fig:typeMooreMachine}%
+\end{figure*}
+
 
 \subsection{Regular machine}
-Please note the following points for regular Moore machine, 
+Please see the Fig. \ref{subfig:regular} and note the following points about regular Moore machine, 
 \begin{enumerate}
 	\item Output depends only on the states, therefore \textbf{no `if statement'} is required in the process-statement. For example, in Lines 76-78 of Listing \ref{vhdl:moore_regular_template}, the outputs (Lines 77-78) are defined inside the `when' statement which contains only state i.e. `s0' (Line 76). 
 	\item Next-state depends on current-state and and  \textbf{current external inputs}. For example, the `state\_next' at Line 46 of Listing \ref{vhdl:moore_regular_template} is defined inside `if statement' (Line 45) which depends on current input. Further, this `if statement' is defined inside the state `s0' (Line 44). Hence the next state depends on current state and current external input.    
@@ -198,7 +226,7 @@ label      = {vhdl:moore_regular_template2}
 ]{moore_regular_template2.vhd}
 
 \subsection{Timed machine}
-If the state of the design changes after certain duration, then we need to add the timer in the VHDL design defined in Listing \ref{vhdl:moore_regular_template} and \ref{vhdl:moore_regular_template}. For this, we need to add one more process-block which performs following actions, 
+If the state of the design changes after certain duration (see Fig. \ref{subfig:timed}), then we need to add the timer in the VHDL design which are created in Listing \ref{vhdl:moore_regular_template} and \ref{vhdl:moore_regular_template}. For this, we need to add one more process-block which performs following actions, 
 \begin{itemize}
 	\item \textbf{Zero the timer : } The value of the timer is set to zero, whenever the state of the system changes. 
 	\item \textbf{Stop the timer : } Value of the timer is incremented till the predefined `maximum value' is reached and then it should be stopped incrementing. Further, it's value should \textbf{not} be set to zero until state is changed. 
@@ -227,7 +255,7 @@ label      = {vhdl:moore_timed_template}
 
 
 \subsection{Recursive machine}
-In recursive machine, the outputs are fed back as input to the system. Hence, we need additional process-statement which can store the outputs which are fed back to combinational block of sequential design, as shown in Listing \ref{vhdl:moore_recursive_template}. The listing is same as Listing \ref{vhdl:moore_timed_template} except certain signals and process block are defined to feedback the output to combination logic; i.e. Lines 31-33 contain the signals (feedback registers) which are required to be feedback the outputs. Here, `\_next' and `\_reg' are used in these lines, where `next' value is fed back as `reg' in the next clock cycle inside the process statement which is defined in Lines 64-75. Lastly, `feedback registers' are also used to calculate the next-state inside the `if statement' e.g. Lines 89 and 94. Also, the value of feedback registers are updated inside these `if statements' e.g. Lines 96 and 100. 
+In recursive machine, the outputs are fed back as input to the system (see Fig. \ref{subfig:recursive}). Hence, we need additional process-statement which can store the outputs which are fed back to combinational block of sequential design, as shown in Listing \ref{vhdl:moore_recursive_template}. The listing is same as Listing \ref{vhdl:moore_timed_template} except certain signals and process block are defined to feedback the output to combination logic; i.e. Lines 31-33 contain the signals (feedback registers) which are required to be feedback the outputs. Here, `\_next' and `\_reg' are used in these lines, where `next' value is fed back as `reg' in the next clock cycle inside the process statement which is defined in Lines 64-75. Lastly, `feedback registers' are also used to calculate the next-state inside the `if statement' e.g. Lines 89 and 94. Also, the value of feedback registers are updated inside these `if statements' e.g. Lines 96 and 100. 
 
 \begin{noNumBox}
 	In recursive Moore machine, 
@@ -279,13 +307,41 @@ label      = {vhdl:mealy_recursive_template}
 \section{Examples} \label{sec:VHDLtemplateExample}
 
 \subsection{Regular Machine : Glitch-free Mealy and Moore design} \label{sec:exampleRegularMMGlitchFree}
-In this section, a non-overlapping sequence detector is implemented to show the differences between Mealy and Moore machines. Listing \ref{vhdl:sequence_detector} implements the `sequence detector' which detects the sequence `110'. The RTL view generated by the listing is shown in Fig. \ref{fig:Mealy_Moore_RTL_glitchfree}, where two D-FF are added to remove the glitches from Moore and Mealy model. Further, the testbench for the listing is shown in Listing \ref{vhdl:sequence_detector_tb}, whose results are illustrated in Fig. \ref{fig:Mealy_MooreGlitchFree}. Please note the following points in Fig. \ref{fig:Mealy_MooreGlitchFree},
+In this section, a non-overlapping sequence detector is implemented to show the differences between Mealy and Moore machines. Listing \ref{vhdl:sequence_detector} implements the `sequence detector' which detects the sequence `110'; and corresponding state-diagrams are shown in Fig. \ref{fig:non-overlap-design}. The RTL view generated by the listing is shown in Fig. \ref{fig:Mealy_Moore_RTL_glitchfree}, where two D-FF are added to remove the glitches from Moore and Mealy model. Also, in the figure, if we click on the state machines, then we can see the implemented state-diagrams e.g. if we click on `state\_reg\_mealy' then the state-diagram in Fig. \ref{fig:Altera_Mealy_seq_det_state} will be displayed, which is exactly same as Fig. \ref{subfig:Mealy_seq_det_state}. 
+
+
+Further, the testbench for the listing is shown in Listing \ref{vhdl:sequence_detector_tb}, whose results are illustrated in Fig. \ref{fig:Mealy_MooreGlitchFree}. Please note the following points in Fig. \ref{fig:Mealy_MooreGlitchFree},
 \begin{enumerate}
 	\item Mealy machines are asynchronous as the output changes as soon as the input changes. It does not wait for the next cycle. 
 	\item If the output of the Mealy machine is delayed, then glitch will be removed and the output will be same as the Moore output\footnote{Note that, there is no glitch in this system. This example shows how to implement the D-FF to remove glitch in the system (if exists)}. 
 	\item Glitch-free Moore output is delayed by one clock cycle. 
 	\item If glitch is not a problem, then we should use Moore machine, because it is synchronous in nature. But, if glitch is problem and we do not want to delay the output then Mealy machines should be used. 
 \end{enumerate}
+
+\begin{figure*}[!h]
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=1\columnwidth]{Moore_seq_det_state}
+		\caption{Moore design}
+		
+	\end{subfigure} %  
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=1\columnwidth]{Mealy_seq_det_state}
+		\caption{Mealy design}
+		\label{subfig:Mealy_seq_det_state}
+	\end{subfigure}		
+	\caption{Non-overlap sequence detector : 110}
+	\label{fig:non-overlap-design}%
+\end{figure*}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.8]{Altera_Mealy_seq_det_state}
+	\caption{State diagram generated by Quartus for Mealy machine in Listing \ref{vhdl:sequence_detector}}
+	\label{fig:Altera_Mealy_seq_det_state}
+\end{figure}
+
 
 \begin{figure}[!h]
 	\centering
@@ -314,7 +370,14 @@ label      = {vhdl:sequence_detector_tb}
 ]{sequence_detector_tb.vhd}
 
 \subsection{Timed machine : programmable square wave }
-Listing \ref{vhdl:square_wave_ex} generates the square wave using Moore machine, whose `on' and `off' time is programmable (see Lines 10 and 11).  The simulation waveform of the listing are shown in Fig. \ref{fig:square_wave_ex}.
+Listing \ref{vhdl:square_wave_ex} generates the square wave using Moore machine, whose `on' and `off' time is programmable (see Lines 10 and 11) according to state-diagram in Fig. \ref{fig:program_s_wave}.  The simulation waveform of the listing are shown in Fig. \ref{fig:square_wave_ex}.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.8]{program_s_wave}
+	\caption{State diagram for programmable square-wave generator}
+	\label{fig:program_s_wave}
+\end{figure}
 
 \begin{figure}[!h]
 	\centering
@@ -330,7 +393,14 @@ label      = {vhdl:square_wave_ex}
 ]{square_wave_ex.vhd}
 
 \subsection{Recursive Machine : Mod-m counter}
-Listing \ref{vhdl:counterEx} implements the Mod-m counter using Moore machine. Machine is recursive because the output signal `count\_moore\_reg' (Line 52) is used as input to the system (Line 35). The simulation waveform of the listing are shown in Fig. \ref{fig:counterEx}
+Listing \ref{vhdl:counterEx} implements the Mod-m counter using Moore machine, whose state-diagram is shown in Fig. \ref{fig:counter_state_diagram}. Machine is recursive because the output signal `count\_moore\_reg' (Line 52) is used as input to the system (Line 35). The simulation waveform of the listing are shown in Fig. \ref{fig:counterEx}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[scale=0.8]{counter_state_diagram}
+	\caption{State diagram for Mod-m counter}
+	\label{fig:counter_state_diagram}
+\end{figure}
 
 \begin{figure}[!h]
 	\centering

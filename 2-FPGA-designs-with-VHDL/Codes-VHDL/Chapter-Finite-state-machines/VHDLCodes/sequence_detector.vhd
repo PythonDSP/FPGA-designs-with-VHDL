@@ -39,7 +39,7 @@ begin
 	process(state_reg_moore, x) 
 	begin 
 		z_moore <= '0'; 
-		state_next_moore <= state_reg_moore; 
+		state_next_moore <= state_reg_moore; -- default 'next state' is 'current state'
 		case state_reg_moore is 
 			when zero_moore => 
 				if x = '1' then 
@@ -48,12 +48,12 @@ begin
 			when one_moore => 
 				if x = '1' then 
 					state_next_moore <= two_moore;
+				else 
+					state_next_moore <= zero_moore;
 				end if;
 			when two_moore =>
 				if x = '0' then
 					state_next_moore <= three_moore; 
-				else 
-					state_next_moore <= zero_moore;
 				end if;
 			when three_moore =>
 				z_moore <= '1';
@@ -69,7 +69,7 @@ begin
 	process(state_reg_mealy, x) 
 	begin 
 		z_mealy <= '0'; 
-		state_next_mealy <= state_reg_mealy; 
+		state_next_mealy <= state_reg_mealy; -- default 'next state' is 'current state'
 		case state_reg_mealy is 
 			when zero_mealy => 
 				if x = '1' then 
@@ -78,11 +78,15 @@ begin
 			when one_mealy => 
 				if x = '1' then 
 					state_next_mealy <= two_mealy;
+				else
+					state_next_mealy <= zero_mealy;
 				end if;
 			when two_mealy =>
 				state_next_mealy <= zero_mealy;
 				if x = '0' then
 					z_mealy <= '1';
+				else 
+					state_next_mealy <= two_mealy;
 				end if;
 		end case;
 	end process; 
