@@ -1,10 +1,10 @@
--- mealy_regular_template.vhd.vhd
+-- mealy_regular_template.vhd
 
 library ieee; 
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity mealy_regular_template.vhd is 
+entity mealy_regular_template is 
 generic (
 	param1 : std_logic_vector(...) := <value>;
 	param1 : unsigned(...) := <value>
@@ -16,7 +16,7 @@ port (
 );
 end entity; 
 
-architecture arch of mealy_regular_template.vhd is 
+architecture arch of mealy_regular_template is 
 	type stateType is (s0, s1, s2, s3, ...);
 	signal state_reg, state_next : stateType; 
 begin 
