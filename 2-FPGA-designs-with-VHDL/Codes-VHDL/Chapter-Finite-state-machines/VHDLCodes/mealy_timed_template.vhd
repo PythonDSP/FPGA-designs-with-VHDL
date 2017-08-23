@@ -7,7 +7,7 @@ use ieee.numeric_std.all;
 entity mealy_timed_template is 
 generic (
 	param1 : std_logic_vector(...) := <value>;
-	param1 : unsigned(...) := <value>
+	param2 : unsigned(...) := <value>
 	);
 port (
 	clk, reset : in std_logic;
@@ -55,7 +55,7 @@ begin
 	end process;
 	
 	-- next state logic and outputs
-	-- This is cominatinal part of the sequential design, 
+	-- This is combinational of the sequential design, 
 	-- which contains the logic for next-state and outputs
 	-- include all signals and input in sensitive-list except state_next
 	process(input1, input2, ..., state_reg) 

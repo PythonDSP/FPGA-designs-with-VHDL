@@ -7,7 +7,7 @@ use ieee.numeric_std.all;
 entity mealy_recursive_template is 
 generic (
 	param1 : std_logic_vector(...) := <value>;
-	param1 : unsigned(...) := <value>
+	param2 : unsigned(...) := <value>
 	);
 port (
 	clk, reset : in std_logic;
