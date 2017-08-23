@@ -12,7 +12,8 @@ generic (
 port (
 	clk, reset : in std_logic;
 	input1, input2, ... : in std_logic_vector(...);
-	output1, output2, ... : out signed(...)
+	-- inout is used here as we are reading output1 and output2
+	new_output1, new_output2, output1, output2, ... : inout signed(...) 
 );
 end entity; 
 
