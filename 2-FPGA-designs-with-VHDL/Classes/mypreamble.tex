@@ -166,7 +166,7 @@ headpunct={}, %%% . is removed after posthead.
 	keepspaces=true,
 	columns=flexible,
 	upquote=true,
-	basicstyle=\footnotesize\sffamily %\ttfamily,  %%% ttlfamily for correct " symbol in code
+	basicstyle=\footnotesize\ttfamily,  %%% ttlfamily for correct " symbol in code
 	%	basicstyle=\small,
 	framextopmargin=5pt, 
 	breaklines=true, %numbers=right,
@@ -178,12 +178,12 @@ headpunct={}, %%% . is removed after posthead.
 	xrightmargin=0.05\textwidth, 
 	caption=\colorbox{blue},	
 	otherkeywords={__get__, __init__, __set__},
-	keywordstyle=\color{blue}\bfseries,
+	keywordstyle=\color{blue}\sffamily\bfseries,
 	%	stepnumber=5,
-	commentstyle=\color{red}, % white comments
-	stringstyle=\color{deepgreen},
+	commentstyle=\color{red}\ttfamily\itshape, % white comments
+	stringstyle=\color{deepgreen}\ttfamily,
 	emph={self},
-	emphstyle=\color{deepred},
+	emphstyle=\color\sffamily{deepred},
 	numbers=left,
 	numberstyle=\noncopynumber,
 	stepnumber=1,
@@ -191,9 +191,9 @@ headpunct={}, %%% . is removed after posthead.
 
 %% add SystemVerilog keywords in Verilog list
 \lstset{language=Verilog,
-		emph={always_comb, always_ff, always_latch, typedef, enum, logic},
-		emphstyle=\color{blue}\bfseries,
-		keywordstyle=\color{blue}\bfseries,
+		emph={$stop, $readmemh, $readmemb, $time, always_comb, always_ff, always_latch, typedef, enum, logic},
+		emphstyle=\color{blue}\sffamily\bfseries,
+		keywordstyle=\color{blue}\sffamily\bfseries,
 }
 %%% to avoid copy the line number from the pdf....
 \newcommand{\noncopynumber}[1]{%
