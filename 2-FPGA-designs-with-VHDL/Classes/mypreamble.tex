@@ -166,7 +166,7 @@ headpunct={}, %%% . is removed after posthead.
 	keepspaces=true,
 	columns=flexible,
 	upquote=true,
-	basicstyle=\footnotesize\ttfamily,  %%% ttlfamily for correct " symbol in code
+	basicstyle=\footnotesize\sffamily %\ttfamily,  %%% ttlfamily for correct " symbol in code
 	%	basicstyle=\small,
 	framextopmargin=5pt, 
 	breaklines=true, %numbers=right,
@@ -189,6 +189,12 @@ headpunct={}, %%% . is removed after posthead.
 	stepnumber=1,
 }
 
+%% add SystemVerilog keywords in Verilog list
+\lstset{language=Verilog,
+		emph={always_comb, always_ff, always_latch, typedef, enum, logic},
+		emphstyle=\color{blue}\bfseries,
+		keywordstyle=\color{blue}\bfseries,
+}
 %%% to avoid copy the line number from the pdf....
 \newcommand{\noncopynumber}[1]{%
 	\BeginAccSupp{method=escape,ActualText={}}%

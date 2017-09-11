@@ -1,7 +1,7 @@
 \begin{theindex}
 
-  \item .cgf file, \hyperpage{114}
-  \item .mif file, \hyperpage{114}
+  \item .cgf file, \hyperpage{116}
+  \item .mif file, \hyperpage{116}
 
   \indexspace
 
@@ -46,11 +46,11 @@
 
   \indexspace
 
-  \item mixed modeling, \hyperpage{20}
+  \item mixed modeling, \hyperpage{21}
   \item modeling styles, \hyperpage{15}
     \subitem behavioral modeling, \hyperpage{20}
     \subitem dataflow, \hyperpage{15}
-    \subitem mixed modeling, \hyperpage{20}
+    \subitem mixed modeling, \hyperpage{21}
     \subitem structural, \hyperpage{17}
 
   \indexspace
@@ -60,7 +60,7 @@
 
   \indexspace
 
-  \item packages, \hyperpage{21}
+  \item packages, \hyperpage{22}
   \item pin assignment
     \subitem csv, \hyperpage{9}
     \subitem manual, \hyperpage{3}
