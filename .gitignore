@@ -1,26 +1,65 @@
-### C ##########
-*.exe
+######### Quartus ###################
 
-### VHDL ########
+## below are the quartus-generated allowed files
+# .bsf
+# .qsf
+# .qpf
+
+
+# folders
+db
+incremental_db
+output_files
+sof
+
+
+# files
 *.bak
-*work  # work folder
+*.cdf
+*.done
+*.jdi
+*.rpt
+*.pin
+*.pof
+*.qdf
+*.qws
+*.summary
+*.smsg
+*.sof
+
+############# Modelsim ############
+*.mpf
+*.mti
+*.sdo
+*.sft
+transcript
+*.vo
+*.vstf
+*.wlf
+*.xrf
+
+#folder
+work
+simulation
+modelsim
 
 ### Latex #########
-*.gz
 *.aux
+*.bbl
+*.blg
+*.gz
 *.idx
+*.ilg
+*.ind
+*.lof
 *.log
+*.lol
+*.lot
 *.nlo
 *.out
 *.toc
-*.ilg
-*.ind
-*.bbl
-*.blg
-
-
-
-
+*.nlg
+*.nls
 
 ########### Manual changes based on Project ############
 
