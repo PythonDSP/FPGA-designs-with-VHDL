@@ -1,11 +1,12 @@
 \begin{theindex}
 
-  \item .cgf file, \hyperpage{114}
-  \item .mif file, \hyperpage{114}
+  \item .cgf file, \hyperpage{115}
+  \item .mif file, \hyperpage{115}
 
   \indexspace
 
   \item architecture, \hyperpage{15}, \hyperpage{25}
+  \item ASCII values, \hyperpage{116}
   \item attributes, \hyperpage{34}
 
   \indexspace
@@ -35,6 +36,7 @@
   \indexspace
 
   \item file, \hyperpage{30}
+  \item function, \hyperpage{52}, \hyperpage{116}
 
   \indexspace
 
@@ -42,6 +44,7 @@
 
   \indexspace
 
+  \item LCD, \hyperpage{116}
   \item library, \hyperpage{14}, \hyperpage{24}
 
   \indexspace
@@ -64,11 +67,13 @@
   \item pin assignment
     \subitem csv, \hyperpage{9}
     \subitem manual, \hyperpage{3}
+  \item procedure, \hyperpage{51}
 
   \indexspace
 
   \item scalar type, \hyperpage{28}
   \item sequential circuit, \hyperpage{35}
+  \item seven segment device, \hyperpage{116}
   \item shared variable, \hyperpage{26}
   \item signal, \hyperpage{26}
   \item structural modeling, \hyperpage{17}

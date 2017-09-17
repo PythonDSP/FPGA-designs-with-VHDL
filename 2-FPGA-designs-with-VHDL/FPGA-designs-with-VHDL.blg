@@ -18,7 +18,7 @@ A level-1 auxiliary file: BackMatters/References/References.aux
 The style file: IEEETran.bst
 A level-1 auxiliary file: BackMatters/Appendix/Appendix.aux
 Database file #1: BackMatters/References/references.bib
--- IEEEtran.bst version 1.13 (2008/09/30) by Michael Shell.
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 Warning--missing publisher in pythondsp

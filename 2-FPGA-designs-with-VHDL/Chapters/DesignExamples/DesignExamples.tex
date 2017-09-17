@@ -1,4 +1,4 @@
-\chapter{Design Examples} \label{ch:ExamplesBasicDesigns}
+\chapter{Design examples} \label{ch:ExamplesBasicDesigns}
 \chapterquote{The only real renunciation is that which abandons, in the midst of worldly duties, all selfish thoughts and desires.}{Meher Baba}
 
 \graphicspath{{Chapters/DesignExamples/Figures/}}
@@ -379,6 +379,29 @@ language = Vhdl,
 caption    = {Top level design for Listing \ref{vhdl:ROM_sevenSegment_mif}},
 label      = {vhdl:ROM_sevenSegment_mif_visualTest}
 ]{ROM_sevenSegment_mif_visualTest.vhd}
+
+\section{LCD interface}\label{sec:LCDinterface}\index{LCD}\index{seven segment device}\index{function}
+In this section, a package is defined in Listing \ref{vhdl:LCD_SSD_display_pkg} which converts the binary data into seven-segment-display-format and lcd-data-format. Then, in Listing \ref{vhdl:LCD_SSD_display}, this package is used to display the value provided by the switches on the seven-segment device and on the LCD. Further, the counting-pattern is also displayed on the LCD screen. The ASCII-values are shown in Fig. \ref{fig:asciiValues} which are used for displaying values on LCD screen. \textbf{Note that, a clock divider is implemented in the design at Lines 85-100}. Please see the comments for more details. 
+
+\index{ASCII values}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{asciiValues}
+	\caption{Chart : ASCII values }
+	\label{fig:asciiValues}
+\end{figure}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Package for converting binary-format into seven-segment and ASCII format},
+label      = {vhdl:LCD_SSD_display_pkg}
+]{LCD_SSD_display_pkg.vhd}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {LCD and seven-segment display},
+label      = {vhdl:LCD_SSD_display}
+]{LCD_SSD_display.vhd}
 
 \section{VGA interface}
 In this section, VGA interface is crated for FPGA devices. VHDL files required for this example are listed below, 
