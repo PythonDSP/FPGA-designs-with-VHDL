@@ -222,7 +222,7 @@ begin
                     LCD_DATA <= binary_to_lcd(total_bits_reg(11 downto 8));
                 elsif char_count_reg = 30 then
                     LCD_DATA <= binary_to_lcd(total_bits_reg(7 downto 4));
-                elsif char_count_reg = 31 then
+                elsif char_count_reg = 31 then  -- reached to end, hence go to "returnHome"
                     LCD_DATA <= binary_to_lcd(total_bits_reg(3 downto 0));
                     state_next <= returnHome;  
                     char_count_next <= 0;  
