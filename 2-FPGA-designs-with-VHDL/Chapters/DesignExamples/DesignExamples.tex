@@ -381,7 +381,10 @@ label      = {vhdl:ROM_sevenSegment_mif_visualTest}
 ]{ROM_sevenSegment_mif_visualTest.vhd}
 
 \section{LCD interface}\label{sec:LCDinterface}\index{LCD}\index{seven segment device}\index{function}
-In this section, a package is defined in Listing \ref{vhdl:LCD_SSD_display_pkg} which converts the binary data into seven-segment-display-format and lcd-data-format. Then, in Listing \ref{vhdl:LCD_SSD_display}, this package is used to display the value provided by the switches on the seven-segment device and on the LCD. Further, the counting-pattern is also displayed on the LCD screen. The ASCII-values are shown in Fig. \ref{fig:asciiValues} which are used for displaying values on LCD screen. \textbf{Note that, a clock divider is implemented in the design at Lines 85-100}. Please see the comments for more details. 
+In this section, a package is defined in Listing \ref{vhdl:LCD_SSD_display_pkg} which converts the binary data into seven-segment-display-format and lcd-data-format. 
+
+\subsection{Example 1}
+In Listing \ref{vhdl:LCD_SSD_display}, this package is used to display the value provided by the switches on the seven-segment device and on the LCD. Further, the counting-pattern is also displayed on the LCD screen. The ASCII-values are shown in Fig. \ref{fig:asciiValues} which are used for displaying values on LCD screen. \textbf{Note that, a clock divider is implemented in the design at Lines 85-100}. Please see the comments for more details. 
 
 \index{ASCII values}
 \begin{figure}[!h]
@@ -403,6 +406,24 @@ caption    = {LCD and seven-segment display},
 label      = {vhdl:LCD_SSD_display}
 ]{LCD_SSD_display.vhd}
 
+\subsection{Example 2}
+
+In Listing \ref{vhdl:LCD_SSD_display}, we used the the `mod' and `division' operation to display the integer values on the LCD. Note that, the division operation requires lots of hardware and for large integer values it can not be synthesized as well. Therefore it is better to display the number in `Hexadecimal' format as shown in Listing \ref{vhdl:LCD_BER_display}. Note that, the binary format is not suitable as well, as it will need large number of characters to display the values on LCD. 
+
+Further, in Listing  \ref{vhdl:LCD_BER_display} the message format is defined, but the actual values are obtained from the Listing \ref{vhdl:LCD_BER_display_top}. In this way, we can separate the `calculation' and `displaying' designs, which is more manageable than previous case. 
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Message displayed on the LCD},
+label      = {vhdl:LCD_BER_display}
+]{LCD_BER_display.vhd}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Top level entity which provides the values to Listing \ref{vhdl:LCD_BER_display}},
+label      = {vhdl:LCD_BER_display_top}
+]{LCD_BER_display_top.vhd}
+
 \section{VGA interface}
 In this section, VGA interface is crated for FPGA devices. VHDL files required for this example are listed below, 
 \begin{enumerate}
@@ -413,6 +434,8 @@ In this section, VGA interface is crated for FPGA devices. VHDL files required f
 	\item modMCounter.vhd
 \end{enumerate}
 Note that, `clockTick.vhd' and `modMCounter.vhd' are discussed in Chapter \ref{ch:VisualVerification}.
+
+
 
 \subsection{Synchronization circuit}
 To display the data generated from FPGA on the VGA screen, we need to send synchronization signal along with some other signals e.g. horizontal synchronization signal, vertical synchronization signals and 25 MHz VGA clock etc. Listing \ref{vhdl:sync_VGA} generates a synchronization circuit to display the data on the VGA screen.   
