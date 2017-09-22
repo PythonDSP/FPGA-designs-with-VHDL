@@ -432,7 +432,14 @@ For this, first we need to design a error-count circuit as shown in Listing \ref
 Finally a top level design is created in Listing \ref{vhdl:error_lcd_connection_test_v1}, which sends the transmitted and detected bit patterns (using SW) to the Listing \ref{vhdl:error_lcd_connection_v1}. If both switches are at the same position then only transmitted-bit-count will increase, otherwise both error-count and transmitted-bit-count will increase.  And the counting will stop when the maximum number of errors will be reached.
 
 \begin{noNumBox}
-	Note that, different clock-rates are used for LCD-display and error-calculation, as both the design needs different frequency of operations. Also, `reset\_n' is used in the design which is (KEY(3)) on the DE2 board. This is also important because the SW switches of the DE2 board are not implemented with debouncing circuits, therefore if the error calculation are performed on high clock rate (in actual system, not in the current design), then 200 errors will be detected on the reset operation itself. Further, it is better to use `KEY' for reset operations in all the cases. Also, by default `KEY' is set to high position, therefore `not' operation is required as shown in Line 28 of Listing \ref{vhdl:error_lcd_connection_test_v1}. 
+	Please note the following points, 
+	
+	\begin{enumerate}
+		\item Different clock-rates are used for LCD-display and error-calculation, as both the design needs different frequency of operations. 
+		\item The `reset\_n' is used in the design which is (KEY(3)) on the DE2 board. This is also important because the SW switches of the DE2 board are not implemented with debouncing circuits, therefore if the error calculation are performed on high clock rate (in actual system, not in the current design), then 200 errors will be detected on the reset operation itself. 
+		\item Further, error calculations is skip for some clocks as shown in Lines 30-36 of Listing \ref{vhdl:error_counter_v1}. Please, read  the comments for more details. 
+		\item Lastly is better to use `KEY (i.e. reset\_n)' for reset operations at the top level design only; because by default `KEY' is set to high position, therefore `not' operation is required as shown in Line 28 of Listing \ref{vhdl:error_lcd_connection_test_v1}. If we use `reset\_n' then it will create lots of confusion, as not operation is used with it for resetting the system. 
+	\end{enumerate}
 \end{noNumBox}
 
 \lstinputlisting[

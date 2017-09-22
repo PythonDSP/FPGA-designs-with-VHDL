@@ -1,4 +1,7 @@
 -- error_counter_v1.vhd
+-- version : 1
+-- Meher Krishna Patel
+-- Date : 21-Sep-2017
 
 -- counts the pre-defined number of errors and and 
 -- number of bits transmitted for the total number of errors
@@ -23,21 +26,34 @@ end entity;
 architecture arch of error_counter_v1 is
     signal count_errors : unsigned(11 downto 0) := (others => '0');
     signal count_bits : unsigned(31 downto 0) := (others => '0');
+
+    -- skip first few clocks, so that reset signal settle down, 
+    -- it is required for proper BER display on the LCD, otherwise 
+    -- error will be calculated while reset is settling down 
+    -- This happens becuase, we are manually reseting the system. 
+    -- Increase/decrease teh value of skip_clock based on the 'clk' value
+    signal skip_clock : unsigned(11 downto 0) := to_unsigned(15, 12);
+    signal count_clock : unsigned(11 downto 0);
+
 begin 
-    process(clk, reset, tx_bit, detected_bit, count_errors, count_bits, count_errors)
+    process(clk, reset, tx_bit, detected_bit, count_errors, count_bits, count_errors, count_clock)
     begin 
-        if reset = '1' then -- set the counts to 0
+        if reset = '1' then 
             count_bits <= (others => '0');
             count_errors <= (others => '0');
-        -- count till maximum number of errors are reached and then stop counting
-        -- if not equal to maximum errors
+            count_clock <= (others => '0');
         elsif rising_edge(clk) and (count_errors /= num_of_errors) then 
-            if tx_bit /= detected_bit then -- if error then increase the 
-                count_bits <= count_bits + 1;  -- tranmitted bit count
-                count_errors <= count_errors + 1; -- and error-count
-            else                                -- else (no error) then
-                count_bits <= count_bits + 1;   -- increase the ranmitted bit count only
+            -- start when count_clock > skip_clock
+            if tx_bit /= detected_bit and (count_clock > skip_clock) then  
+                count_bits <= count_bits + 1; 
+                count_errors <= count_errors + 1; 
+            elsif (count_clock > skip_clock) then
+                count_bits <= count_bits + 1;
+            else   -- otherwise increase the count_clock
+                count_clock <= count_clock + 1; 
             end if;
+--        elsif rising_edge(clk) then
+--            count_clock <= count_clock + 1;
         end if; 
     end process;
 
