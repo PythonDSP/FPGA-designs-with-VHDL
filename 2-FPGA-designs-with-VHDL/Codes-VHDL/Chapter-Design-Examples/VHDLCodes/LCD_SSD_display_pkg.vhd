@@ -1,21 +1,21 @@
 -- LCD_SSD_display_pkg.vhd
 -- LCD and Seven-segment-display
-
 library ieee; 
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 package LCD_SSD_display_pkg is
 	-- binary to seven-segment format
 	function binary_to_ssd (
-					signal switch : std_logic_vector
+					signal switch : unsigned
 				)
-			return std_logic_vector;
+			return unsigned;
 			
 	-- binary to LCD format
 	function binary_to_lcd (
-					signal switch : std_logic_vector
+					signal switch : unsigned
 				)
-			return std_logic_vector; 	
+			return unsigned; 	
 end LCD_SSD_display_pkg; 
 
 		
@@ -23,10 +23,10 @@ package body LCD_SSD_display_pkg is
     -- begin function "binary_to_ssd"
     function binary_to_ssd (
             -- list all input here
-            signal switch : std_logic_vector(3 downto 0)
+            signal switch : unsigned(3 downto 0)
             )
         -- only one value can be return
-        return std_logic_vector is variable sevenSegment : std_logic_vector(6 downto 0);
+        return unsigned is variable sevenSegment : unsigned(6 downto 0);
     begin 
         case switch is 
             -- active low i.e. 0:display & 1:no display
@@ -54,10 +54,10 @@ package body LCD_SSD_display_pkg is
 	 -- begin function "binary_to_lcd"
     function binary_to_lcd (
             -- list all input here
-            signal switch : std_logic_vector(3 downto 0)
+            signal switch : unsigned(3 downto 0)
             )
         -- only one value can be return
-        return std_logic_vector is variable lcdDisplay : std_logic_vector(7 downto 0);
+        return unsigned is variable lcdDisplay : unsigned(7 downto 0);
     begin 
         case switch is 
             when "0000" => lcdDisplay := "00110000"; -- 0, active low i.e. 0:display & 1:no display

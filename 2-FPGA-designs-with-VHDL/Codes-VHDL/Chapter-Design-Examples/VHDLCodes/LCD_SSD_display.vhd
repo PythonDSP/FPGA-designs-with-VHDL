@@ -25,13 +25,13 @@ generic (clk_dvd : natural := 500000;
     ); 
 port(
     CLOCK_50, reset : in std_logic;
-    SW : in std_logic_vector(3 downto 0);
-    LEDG : out std_logic_vector(3 downto 0);
-    HEX0 : out std_logic_vector(6 downto 0);
+    SW : in unsigned(3 downto 0);
+    LEDG : out unsigned(3 downto 0);
+    HEX0 : out unsigned(6 downto 0);
     LCD_RS, LCD_RW : out std_logic;
     LCD_EN : out std_logic;
     LCD_ON, LCD_BLON : out std_logic; -- LCD ON, Backlight ON
-    LCD_DATA : out std_logic_vector(7 downto 0)
+    LCD_DATA : out unsigned(7 downto 0)
 ); 
 end entity;  
 
@@ -39,7 +39,7 @@ architecture arch of LCD_SSD_display is
     -- FSM for lcd display
     type stateType is (init1, init2, init3, init4, clearDisplay, displayControl, Line1, Line2, writeData_row1, writeData_row2, returnHome);
     signal state_reg, state_next : stateType; 
-    signal input_lcd : std_logic_vector(7 downto 0);
+    signal input_lcd : unsigned(7 downto 0);
 	 
     signal count : natural := 0;
     signal char_count_reg, char_count_next : natural := 0;
@@ -47,9 +47,9 @@ architecture arch of LCD_SSD_display is
     
     signal lcd_clock : std_logic;
 	 
-    signal data1, data2 : std_logic_vector(3 downto 0);
+    signal data1, data2 : unsigned(3 downto 0);
 
-    type character_string is array ( 0 to 31 ) of std_logic_vector( 7 downto 0 );
+    type character_string is array ( 0 to 31 ) of unsigned( 7 downto 0 );
     signal LCD_display_string : character_string;
 
 begin
@@ -200,11 +200,11 @@ begin
                  
                 if char_count_reg = 24 then -- replace space at location 26 with number
                     -- decimal place of inc_count_reg
-				    data1 <= std_logic_vector(to_signed((inc_count_reg / 10) mod 10, 4)); 
+				    data1 <= unsigned(to_signed((inc_count_reg / 10) mod 10, 4)); 
                     LCD_DATA <= binary_to_lcd(data1);
                 elsif char_count_reg = 25 then 
                     -- unit place of inc_count_reg
-				    data2 <= std_logic_vector(to_signed(inc_count_reg mod 10, 4)); 
+				    data2 <= unsigned(to_signed(inc_count_reg mod 10, 4)); 
                     LCD_DATA <= binary_to_lcd(data2);
                     if inc_count_reg = max_count then -- reset if count reach to maximum
                         inc_count_next <= 0; 

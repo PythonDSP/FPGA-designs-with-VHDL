@@ -424,6 +424,37 @@ caption    = {Top level entity which provides the values to Listing \ref{vhdl:LC
 label      = {vhdl:LCD_BER_display_top}
 ]{LCD_BER_display_top.vhd}
 
+\subsection{Example 3 : Error counting}
+In Listing \ref{vhdl:LCD_BER_display_top}, we if we change the position of the switches, then corresponding values are shown in the LCD display. In this section, we will use two switches where one switch will act as transmitted signal and second switch will act as detected signal. If the two values are different, then error-count and transmitted-bit-count will increase; but if both the values are same then only bit-count will increase (and error-count will remain constant as there is not error). 
+
+For this, first we need to design a error-count circuit as shown in Listing \ref{vhdl:error_counter_v1}. Next, we integrated Listing \ref{vhdl:error_counter_v1} and Listing \ref{vhdl:LCD_SSD_display} in one listing i.e. Listing \ref{vhdl:error_lcd_connection_v1}; this is done so that we need to instantiate only one design to count and display the errors. In the other words, the main design should send the transmitted and detected bit patterns to Listing \ref{vhdl:error_lcd_connection_v1} and the rest of the job, i.e. error calculation and error display, will be performed by the Listing \ref{vhdl:error_lcd_connection_v1}, as discussed in next paragraph.
+
+Finally a top level design is created in Listing \ref{vhdl:error_lcd_connection_test_v1}, which sends the transmitted and detected bit patterns (using SW) to the Listing \ref{vhdl:error_lcd_connection_v1}. If both switches are at the same position then only transmitted-bit-count will increase, otherwise both error-count and transmitted-bit-count will increase.  And the counting will stop when the maximum number of errors will be reached.
+
+\begin{noNumBox}
+	Note that, different clock-rates are used for LCD-display and error-calculation, as both the design needs different frequency of operations. Also, `reset\_n' is used in the design which is (KEY(3)) on the DE2 board. This is also important because the SW switches of the DE2 board are not implemented with debouncing circuits, therefore if the error calculation are performed on high clock rate (in actual system, not in the current design), then 200 errors will be detected on the reset operation itself. Further, it is better to use `KEY' for reset operations in all the cases. Also, by default `KEY' is set to high position, therefore `not' operation is required as shown in Line 28 of Listing \ref{vhdl:error_lcd_connection_test_v1}. 
+\end{noNumBox}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Counts the error},
+label      = {vhdl:error_counter_v1}
+]{error_counter_v1.vhd}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Connect error-counting and LCD-display in one design},
+label      = {vhdl:error_lcd_connection_v1}
+]{error_lcd_connection_v1.vhd}
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Top level design which sends the transmitted and detected bit pattern},
+label      = {vhdl:error_lcd_connection_test_v1}
+]{error_lcd_connection_test_v1.vhd}
+
+
+
 \section{VGA interface}
 In this section, VGA interface is crated for FPGA devices. VHDL files required for this example are listed below, 
 \begin{enumerate}
