@@ -435,16 +435,24 @@ Finally a top level design is created in Listing \ref{vhdl:error_lcd_connection_
 	Please note the following points, 
 	
 	\begin{enumerate}
-		\item Different clock-rates are used for LCD-display and error-calculation, as both the design needs different frequency of operations. 
+		\item Different clock-rates are used for LCD-display and error-calculation, as both the design needs different frequency of operations, as shown in top level design for the error counter (see Lines 58 and 61 of Listing \ref{vhdl:error_lcd_connection_test_v1}). 
 		\item The `reset\_n' is used in the design which is (KEY(3)) on the DE2 board. This is also important because the SW switches of the DE2 board are not implemented with debouncing circuits, therefore if the error calculation are performed on high clock rate (in actual system, not in the current design), then 200 errors will be detected on the reset operation itself. 
-		\item Further, error calculations is skip for some clocks as shown in Lines 30-36 of Listing \ref{vhdl:error_counter_v1}. Please, read  the comments for more details. 
+		\item Further, error calculations is skipped for first few clocks as shown in Lines 67-76 of Listing \ref{vhdl:error_counter_v1}. During these cycles, `0xFFF...' are displayed on the screen. Please, read  the comments for more details. 
 		\item Lastly is better to use `KEY (i.e. reset\_n)' for reset operations at the top level design only; because by default `KEY' is set to high position, therefore `not' operation is required as shown in Line 28 of Listing \ref{vhdl:error_lcd_connection_test_v1}. If we use `reset\_n' then it will create lots of confusion, as not operation is used with it for resetting the system. 
 	\end{enumerate}
 \end{noNumBox}
 
+
 \lstinputlisting[
 language = Vhdl,
-caption    = {Counts the error},
+caption    = {Top level design which sends the transmitted and detected bit pattern},
+label      = {vhdl:error_lcd_connection_test_v1}
+]{error_lcd_connection_test_v1.vhd}
+
+
+\lstinputlisting[
+language = Vhdl,
+caption    = {Error counter},
 label      = {vhdl:error_counter_v1}
 ]{error_counter_v1.vhd}
 
@@ -454,11 +462,6 @@ caption    = {Connect error-counting and LCD-display in one design},
 label      = {vhdl:error_lcd_connection_v1}
 ]{error_lcd_connection_v1.vhd}
 
-\lstinputlisting[
-language = Vhdl,
-caption    = {Top level design which sends the transmitted and detected bit pattern},
-label      = {vhdl:error_lcd_connection_test_v1}
-]{error_lcd_connection_test_v1.vhd}
 
 
 
