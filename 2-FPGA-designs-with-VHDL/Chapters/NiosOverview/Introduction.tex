@@ -4,7 +4,7 @@ In this tutorial, we will learn to design embedded system on FPGA board using Ni
 Nios II is a 32-bit embedded-processor architecture designed for Altera-FPGA board. In Fig. \ref{fig:NiosFlowChart}, various steps are shown to design the SoPC system on the FPGA board using Nios-II processor. In this chapter, these steps are discussed and a system is designed which displays the message on the computer and blinks one LED using FPGA board. Further, the outputs of this system is verified using Modelsim.  \textbf{It is recommended to read first two chapters before practicing the codes, as various issues related to the use of Nios software are discussed in these chapters.}
 \begin{figure}[!h]
 	\centering
-	\includegraphics[scale=0.65]{NiosFlowChart}
+	\includegraphics[scale=0.65]{NIOSFlowChart}
 	\caption{Flow chart for creating the embedded system}
 	\label{fig:NiosFlowChart}
 \end{figure}
@@ -118,7 +118,7 @@ SoPC can be created using two tools in Quartus software i.e. `SOPC builder' and 
 	\item Then, go to Systems$\rightarrow$Assign Base Address. This will assign the unique addresses for all the devices. With the help of these address, the devices can be accessed by C/C++ codes in Nios-II software. If everything is correct till this point, we will get the `0 Errors, 0 Warnings' message as shown in Fig. \ref{fig:CompleteNios}.
 	\begin{figure}[!h]
 		\centering
-		\includegraphics[scale=0.6]{CompleteNios}
+		\includegraphics[scale=0.6]{CompleteNIOS}
 		\caption{0 errors and 0 warnings}
 		\label{fig:CompleteNios}
 	\end{figure}
