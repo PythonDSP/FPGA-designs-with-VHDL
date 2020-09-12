@@ -19,13 +19,13 @@ end entity;
 architecture arch of counterEx is 
 	type stateType_moore is (start_moore, count_moore);
 	signal state_moore_reg, state_moore_next : stateType_moore;
-	signal count_moore_reg, count_moore_next : unsigned(N-1 downto 0);
+	signal count_moore_reg, count_moore_next : integer;
 begin 
 	process(clk, reset)
 	begin 
 		if reset = '1' then
 			state_moore_reg <= start_moore;
-			count_moore_reg <= (others => '0');
+			count_moore_reg <= 0;
 		elsif rising_edge(clk) then
 			state_moore_reg <= state_moore_next;
 			count_moore_reg <= count_moore_next;
@@ -36,11 +36,11 @@ begin
 	begin 
 		case state_moore_reg is
 			when start_moore =>
-				count_moore_next <= (others => '0');
+				count_moore_next <= 0;
 				state_moore_next <= count_moore;
 			when count_moore =>
 				count_moore_next <= count_moore_reg  + 1;
-				if (count_moore_reg  + 1) = M - 1 then
+				if (count_moore_reg = M - 1) then
 					state_moore_next <= start_moore;
 				else
 					state_moore_next <= count_moore;
